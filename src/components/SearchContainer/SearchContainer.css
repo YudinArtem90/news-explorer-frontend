@@ -1,0 +1,24 @@
+.search-container{
+    position: relative;
+}
+
+.search-container__header-text{
+    font-family: Roboto Slab;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 60px;
+    line-height: 64px;
+    color: #FFFFFF;
+    width: 608px;
+    margin: 0;
+}
+
+.search-container__header-subtitle{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    color: #FFFFFF;
+    width: 545px;
+    margin: 32px 0 64px;
+}
