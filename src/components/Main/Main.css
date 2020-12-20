@@ -1,0 +1,12 @@
+.main{
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../images/background.jpg);
+    width: 100%;
+}
+
+.main__search-for-news{
+    height: 576px;
+}
