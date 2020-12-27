@@ -1,0 +1,17 @@
+.about{
+    display: grid;
+    /* grid-template-columns: minmax(232px, 464px) minmax(288px, 600px); */
+    /* grid-template-columns: minmax(232px, 1fr) minmax(288px, 1fr); */
+    grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+    grid-template-rows: 624px;
+    grid-gap: 30px;
+}
+
+.about__avatar{
+    object-fit: cover;
+    width: 100%;
+}
+
+.about__container-avatar{
+    padding: 30px;
+}
