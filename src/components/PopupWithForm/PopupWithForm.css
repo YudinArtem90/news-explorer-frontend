@@ -1,0 +1,42 @@
+.popup{
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    visibility: hidden;
+    /* visibility: hidden;
+    opacity: 0;
+    transition: visibility .5s,opacity .7s linear; */
+    z-index: 3;
+}
+
+.popup__main-container{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup__footer-container{
+    display: flex;
+    flex-direction: column-reverse;
+
+
+    width: 430px;
+    /* height: 457px; */
+
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+}
+
+.popup__icon-close{
+    position: relative;
+    align-self: flex-end;
+
+    left: 36px;
+    /* top: 7px;
+    max-height: 40px; */
+}
