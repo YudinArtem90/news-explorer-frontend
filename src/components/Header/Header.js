@@ -1,6 +1,6 @@
 import './Header.css';
 import Navigation from '../Navigation/Navigation';
-import logout from '../../images/logout.svg';
+// import logout from '../../images/logout.svg';
 
 function Header() {
     return (
