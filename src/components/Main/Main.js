@@ -4,6 +4,7 @@ import About from '../About/About';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import Preloader from '../Preloader/Preloader';
+import Footer from '../Footer/Footer';
 
 function Main() {
     return (
@@ -13,6 +14,7 @@ function Main() {
         <NewsCardList/>
         <About/>
         <PopupWithForm/>
+        <Footer/>
       </div>
     );
   }
