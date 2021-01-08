@@ -21,8 +21,8 @@
     font-weight: normal;
     font-size: 18px;
     line-height: 24px;
-    text-align: center;
     color: #B6BCBF;
+    text-align: center;
 }
 
 @keyframes rotation {
@@ -32,4 +32,30 @@
     100% {
         transform:rotate(360deg);
     }
+}
+
+.preloader-container__not-found-text-inform{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    color: #B6BCBF;
+    width: 335px;
+    margin: 0;
+}
+
+.preloader-container__not-found{
+    justify-items: center;
+    display: grid;
+}
+
+.preloader-container__text-header{
+    font-family: Roboto Slab;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 30px;
+    color: #1A1B22;
+    margin: 32px 0 16px;
 }
