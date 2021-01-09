@@ -11,8 +11,8 @@ function Footer() {
             <a className="footer__link" href="https://yandex.ru/maps/" target="_blank" title="Карты">Яндекс.Практикум</a>
         </nav>
         <div className="footer__container-icon">
-            <img src={facebook} alt="facebook" className="footer__icon"/>
             <img src={github} alt="github" className="footer__icon"/>
+            <img src={facebook} alt="facebook" className="footer__icon"/>
         </div>
       </div>
     );
