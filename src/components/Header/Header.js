@@ -27,7 +27,7 @@ function Header(props) {
             <div className="header__menu-desktop">
               <Navigation mainPage={mainPage} openMenu={openMenu}/>
               {
-                mainPage ? <a className="header__authorization">Авторизоваться</a> : null
+                mainPage ? <button className="header__authorization">Авторизоваться</button> : null
               }
             </div>
 
@@ -44,7 +44,7 @@ function Header(props) {
           openMenu ? 
               <div className="header__menu-mobile">
                 <Navigation mainPage={mainPage} openMenu={openMenu}/>
-                <a className="header__authorization">Авторизоваться</a>
+                <button className="header__authorization">Авторизоваться</button>
               </div> : null
         }
       </div>
