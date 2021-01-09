@@ -17,8 +17,8 @@ function App() {
 
       <Switch>
 
-        <Route path='/asd'>
-          <Header/>
+        <Route path='/saved-news'>
+          
         </Route>
 
         <ProtectedRoute 
