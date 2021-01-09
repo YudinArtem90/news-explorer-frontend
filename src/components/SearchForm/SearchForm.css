@@ -1,6 +1,4 @@
 .search-form{
-    width: 608px;
-    height: 64px;
     position: inherit;
 }
 
@@ -35,7 +33,6 @@
 .search-form__button{
     width: 168px;
     height: 100%;
-    position: absolute;
     top: 0px;
     right: 0px;
     font-style: normal;
@@ -43,8 +40,6 @@
     font-size: 18px;
     line-height: 24px;
     color: #FFF;
-
-
     border: 1px solid #2F71E5;
     box-sizing: border-box;
     backdrop-filter: blur(8px);
@@ -60,4 +55,43 @@
 
 .search-form__button:active{
     background: #2A65CC;
+}
+
+@media (max-width: 480px){
+    .search-form__button{
+        width: 288px;
+        height: 56px;
+        margin: 16px auto 32px;
+    }
+
+    .search-form{ 
+        display: contents;
+    }
+
+    .search-form__input{
+        width: 288px;
+        height: 56px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px){
+    .search-form__button{
+        position: absolute;
+    }
+
+    .search-form{
+        width: 448px;
+        height: 56px;
+    }
+}
+
+@media (min-width: 769px){
+    .search-form__button{
+        position: absolute;
+    }
+
+    .search-form{
+        width: 608px;
+        height: 64px;
+    }
 }
