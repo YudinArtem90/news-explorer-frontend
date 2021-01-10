@@ -1,17 +1,113 @@
 .about{
     display: grid;
-    /* grid-template-columns: minmax(232px, 464px) minmax(288px, 600px); */
-    /* grid-template-columns: minmax(232px, 1fr) minmax(288px, 1fr); */
-    grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
-    grid-template-rows: 624px;
-    grid-gap: 30px;
 }
 
 .about__avatar{
     object-fit: cover;
+    min-width: 232px;
+    max-width: 464px;
+    margin: auto;
+    display: block;
     width: 100%;
 }
 
 .about__container-avatar{
-    padding: 30px;
+    margin: auto;
+}
+
+.about__container{
+    display: flex;
+    flex-direction: column;
+}
+
+.about__header-text{
+    font-family: Roboto Slab;
+    font-style: normal;
+    font-weight: normal;
+    color: #1A1B22;
+    margin: 0;
+}
+
+.about__text{
+    font-style: normal;
+    font-weight: normal;
+    color: #1A1B22;
+    margin: 0;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+@media (max-width: 480px){
+    .about{
+        grid-template-columns: 1fr;
+    }
+
+    .about__container{
+        padding-top: 24px;
+        max-width: 288px;
+        margin: auto;
+    }
+
+    .about__container-avatar {
+        padding: 32px 24px 0;
+    }
+
+    .about__header-text{
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .about__text:first-of-type{
+        margin-bottom: 35px;
+        margin-top: 16px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px){
+
+    .about{
+        grid-template-rows: 354px;
+        grid-template-columns: 305px 1fr;
+    }
+
+    .about__container{
+        padding: 40px 0;
+        max-width: 424px;
+    }
+
+    .about__avatar{
+        width: 232px;
+    }
+
+    .about__header-text{
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .about__text:first-of-type{
+        margin-bottom: 35px;
+        margin-top: 16px;
+    }
+}
+
+@media (min-width: 769px){
+    .about{
+        grid-template-rows: 624px;
+        grid-template-columns: 568px 1fr;
+    }
+
+    .about__container{
+        padding: 131px 0;
+        max-width: 600px;
+    }
+
+    .about__header-text{
+        font-size: 40px;
+        line-height: 46px;
+    }
+
+    .about__text:first-of-type{
+        margin-bottom: 35px;
+        margin-top: 24px;
+    }
 }

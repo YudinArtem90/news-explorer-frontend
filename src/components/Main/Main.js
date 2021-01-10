@@ -11,10 +11,10 @@ function Main() {
     return (
       <div className="main">
         <SearchContainer/>
-        <Preloader/>
+        {/* <Preloader/> */}
         <NewsCardList/>
         <About/>
-        <PopupWithForm/>
+        {/* <PopupWithForm/> */}
       </div>
     );
   }
