@@ -6,15 +6,20 @@ import { Link, withRouter } from 'react-router-dom';
 
 function Header(props) {
 
-    console.log('props', props);
+    // console.log('props', props);
 
     const [openMenu, setOpenMenu] = React.useState(false);
     const savedNews = props.location.pathname === '/saved-news';
     const mainPage = props.location.pathname === '/';
 
-    console.log('savedNews', savedNews);
-    console.log('mainPage', mainPage);
-    console.log('innerWidth', window.innerWidth);
+    const openModal = () => {
+      // console.log('props', props);
+      props.setShowModal(true);
+    }
+
+    // console.log('savedNews', savedNews);
+    // console.log('mainPage', mainPage);
+    // console.log('innerWidth', window.innerWidth);
 
     return (
       <div className={`header ${openMenu ? 'header_theme_black' : ''}`}>
@@ -27,7 +32,7 @@ function Header(props) {
             <div className="header__menu-desktop">
               <Navigation mainPage={mainPage} openMenu={openMenu}/>
               {
-                mainPage ? <button className="header__authorization">Авторизоваться</button> : null
+                mainPage ? <button className="header__authorization" onClick={openModal}>Авторизоваться</button> : null
               }
             </div>
 
@@ -44,7 +49,7 @@ function Header(props) {
           openMenu ? 
               <div className="header__menu-mobile">
                 <Navigation mainPage={mainPage} openMenu={openMenu}/>
-                <button className="header__authorization">Авторизоваться</button>
+                <button className="header__authorization" onClick={openModal}>Авторизоваться</button>
               </div> : null
         }
       </div>

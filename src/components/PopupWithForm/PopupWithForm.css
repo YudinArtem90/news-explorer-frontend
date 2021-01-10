@@ -6,11 +6,19 @@
     bottom: 0;
     left: 0;
     display: flex;
-    visibility: hidden;
-    /* visibility: hidden;
     opacity: 0;
-    transition: visibility .5s,opacity .7s linear; */
+    transition: visibility .5s,opacity .7s linear;
     z-index: 3;
+}
+
+.popup_active_true{
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup_active_false{
+    visibility: hidden;
+    opacity: 0;
 }
 
 .popup__main-container{
@@ -27,6 +35,7 @@
 .popup__icon-close{
     position: relative;
     align-self: flex-end;
+    cursor: pointer;
 }
 
 @media (max-width: 480px){
