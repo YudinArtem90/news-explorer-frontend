@@ -1,4 +1,5 @@
 import './Form.css';
+import { Link } from 'react-router-dom';
 
 function Form() {
     return (
@@ -19,6 +20,7 @@ function Form() {
                 <button className="form__button">Зарегистрироваться</button>
             </>
             </form>
+            <p className="container-form__info">или <Link className="container-form__link" to="/sign-in">Зарегистрироваться</Link></p>
         </div>
     );
   }

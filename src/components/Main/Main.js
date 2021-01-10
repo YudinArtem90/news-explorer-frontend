@@ -14,7 +14,7 @@ function Main() {
         {/* <Preloader/> */}
         <NewsCardList/>
         <About/>
-        {/* <PopupWithForm/> */}
+        <PopupWithForm/>
       </div>
     );
   }
