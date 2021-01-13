@@ -1,14 +1,15 @@
 import './Footer.css';
 import facebook from '../../images/facebook.svg';
 import github from '../../images/github.svg';
+import { Link } from 'react-router-dom'; 
 
 function Footer() {
     return (
       <div className="footer">
         <p className="footer__copyright">&#169; 2020 Supersite, Powered by News API</p>
         <nav className="footer__nav">
-            <a className="footer__link" href="https://yandex.ru/maps/" target="_blank" title="Карты">Главная</a>
-            <a className="footer__link" href="https://yandex.ru/maps/" target="_blank" title="Карты">Яндекс.Практикум</a>
+            <Link to="/" className="footer__link" title="Главная страница">Главная</Link>
+            <a href="https://praktikum.yandex.ru" className="footer__link" target="_blank" title="Яндекс.Практикум">Яндекс.Практикум</a>
         </nav>
         <div className="footer__container-icon">
             <img src={github} alt="github" className="footer__icon"/>

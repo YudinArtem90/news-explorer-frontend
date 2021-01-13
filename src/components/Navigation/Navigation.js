@@ -1,4 +1,5 @@
 import './Navigation.css';
+import { Link } from 'react-router-dom'; 
 
 function Navigation({mainPage , openMenu, savedNews}) {
     
@@ -10,11 +11,11 @@ function Navigation({mainPage , openMenu, savedNews}) {
             <ul className="header__menu-ul-desktop">
                 {
                     mainPage ?
-                    <li className={classLi}><a href="#" className={classLink}>Главная</a></li>
+                    <li className={classLi}><Link to="/" className={classLink}>Главная</Link></li>
                     :
                     <>
-                        <li className="header__menu-li"><a href="#" className={classLink}>Главная</a></li>
-                        <li className={classLi}><a href="#" className={classLink}>Сохранённые статьи</a></li>
+                        <li className="header__menu-li"><Link to="/" className={classLink}>Главная</Link></li>
+                        <li className={classLi}><Link to="/saved-news" className={classLink}>Сохранённые статьи</Link></li>
                     </>
                 }
             </ul>
@@ -22,8 +23,8 @@ function Navigation({mainPage , openMenu, savedNews}) {
             {
                 openMenu ?
                     <ul className="header__menu-ul-mobile">
-                        <li className="header__menu-li"><a href="#" className="header__menu-link">Главная</a></li>
-                        <li className="header__menu-li"><a href="#" className="header__menu-link">Сохранённые статьи</a></li>
+                        <li className="header__menu-li"><Link to="/" className="header__menu-link">Главная</Link></li>
+                        <li className="header__menu-li"><Link to="/saved-news" className="header__menu-link">Сохранённые статьи</Link></li>
                     </ul> : null
             }
         </>
