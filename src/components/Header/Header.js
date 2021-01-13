@@ -22,17 +22,21 @@ function Header(props) {
     // console.log('innerWidth', window.innerWidth);
 
     return (
-      <div className={`header ${openMenu ? 'header_theme_black' : ''}`}>
+      <div className={`header ${openMenu ? 'header_theme_black' : ''} ${savedNews ? 'header_saved-news_page' : 'header_main_page'}`}>
         <div className="header__left-container">
-            <h2 className="header__text">NewsExplorer</h2>
+            <h2 className={`header__text ${savedNews ? 'header__text_theme_black' : 'header__text_theme_white'}`}>NewsExplorer</h2>
         </div>
         <div className="header__right-container">
 
 
             <div className="header__menu-desktop">
-              <Navigation mainPage={mainPage} openMenu={openMenu}/>
+              <Navigation mainPage={mainPage} openMenu={openMenu} savedNews={savedNews}/>
               {
-                mainPage ? <button className="header__authorization" onClick={openModal}>Авторизоваться</button> : null
+                mainPage ? 
+                <button className="header__authorization" onClick={openModal}>Авторизоваться</button> : 
+                <button className="header__button-back">Грета 
+                  <i className="header__button-icon"/>
+                </button>
               }
             </div>
 
@@ -48,7 +52,7 @@ function Header(props) {
         {
           openMenu ? 
               <div className="header__menu-mobile">
-                <Navigation mainPage={mainPage} openMenu={openMenu}/>
+                <Navigation mainPage={mainPage} openMenu={openMenu} savedNews={savedNews}/>
                 <button className="header__authorization" onClick={openModal}>Авторизоваться</button>
               </div> : null
         }

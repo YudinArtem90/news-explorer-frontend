@@ -6,9 +6,16 @@
     display: flex;
     align-content: center;
     background: rgba(196, 196, 196, 0.01);
-    box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
     position: absolute;
     z-index: 2;
+}
+
+.header_main_page{
+    box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
+}
+
+.header_saved-news_page{
+    box-shadow: inset 0px -1px 0px #E5E5E5;
 }
 
 .header_theme_black{
@@ -16,13 +23,11 @@
 }
 
 .header__left-container{
-    width: 50%;
     display: flex;
     align-items: center;
 }
 
 .header__text{
-    color: #fff;
     font-family: Roboto Slab;
     font-style: normal;
     font-weight: bold;
@@ -30,8 +35,15 @@
     line-height: 24px;
 }
 
+.header__text_theme_black{
+    color:#1A1B22;
+}
+
+.header__text_theme_white{
+    color: #fff;
+}
+
 .header__right-container{
-    width: 50%;
     height: 100%;
 }
 
@@ -114,6 +126,31 @@
     align-content: center;
 }
 
+.header__button-back{
+    color: #1A1B22;
+    border: 1px solid #D1D2D6;
+    border-radius: 100px;
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: transparent;
+    min-width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    padding: 0 0 0 15px;
+}
+
+.header__button-icon{
+    background-image: url(../../images/logout.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
 @media (max-width: 480px){
     .header{
         height: 56px;
@@ -131,10 +168,15 @@
     .header__right-container{
         display: flex;
         justify-content: flex-end;
+        width: 50%;
     }
 
     .header__menu-desktop{
         display: none;
+    }
+
+    .header__left-container{
+        width: 50%;
     }
 }
 
@@ -157,6 +199,18 @@
     .header__button-menu-mobile{ 
         display: none;  
     }
+
+    .header__button-back{
+        margin-right: 40px;
+    }
+
+    .header__left-container{
+        width: 45%;
+    }
+
+    .header__right-container{
+        width: 55%;
+    }
 }
 
 @media (min-width: 769px){
@@ -177,5 +231,17 @@
 
     .header__button-menu-mobile{ 
         display: none;  
+    }
+
+    .header__button-back{
+        margin-right: 104px;
+    }
+
+    .header__left-container{
+        width: 50%;
+    }
+
+    .header__right-container{
+        width: 50%;
     }
 }
