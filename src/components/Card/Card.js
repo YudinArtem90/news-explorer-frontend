@@ -1,17 +1,33 @@
 import './Card.css';
+import React from 'react';
+import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 
-function Card() {
+function Card({date, title, article, sourceOfInformation, category = ''}) {
+
+    const mainPage = React.useContext(CurrentPageContext);
+    const [visibleLabel, setVisibleLabel] = React.useState(false);
+    const textLabel = `${mainPage ? 'Войдите, чтобы сохранять статьи' : 'Убрать из сохранённых'}`;
+    
     return (
         <div className="new-card-container">
             <div className="new-card-container__header">
-                <label className="new-card-container__inform-label">Войдите, чтобы сохранять статьи</label>
-                <button className="new-card-container__button new-card-container__button_save-articles"></button>
+                {
+                    !mainPage ? <label className="new-card-container__category">{category}</label> : null
+                }
+                {
+                    visibleLabel ? <label className="new-card-container__inform-label">{textLabel}</label> : null
+                }
+                <button 
+                    onMouseOver={() => setVisibleLabel(true)}
+                    onMouseOut={() => setVisibleLabel(false)}
+                    className={`new-card-container__button ${mainPage ? 'new-card-container__button_save-articles' : 'new-card-container__button_delete-articles'}`}
+                ></button>
             </div>
             <div className="new-card-container__main">
-                <label className="new-card-container__date">2 августа, 2019</label>
-                <h2 className="new-card-container__title">Национальное достояние – парки</h2>
-                <p className="new-card-container__article">В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складываться система национальных парков – охраняемых территорий, где и сегодня каждый может приобщиться к природе. dfgdf dfg dfg df gdfg dfgfdgdfgdfgdfgdfgdfgg dfg dfg d dfg dfg </p>
-                <label className="new-card-container__source-of-information">Лента.ру</label>
+                <label className="new-card-container__date">{date}</label>
+                <h2 className="new-card-container__title">{title}</h2>
+                <p className="new-card-container__article">{article}</p>
+                <label className="new-card-container__source-of-information">{sourceOfInformation}</label>
             </div>
         </div>
     );
