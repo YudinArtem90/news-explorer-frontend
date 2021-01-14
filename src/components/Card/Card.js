@@ -1,12 +1,14 @@
 import './Card.css';
 import React from 'react';
 import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
+import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 
 function Card({date, title, article, sourceOfInformation, category = ''}) {
 
     const mainPage = React.useContext(CurrentPageContext);
+    const loggedIn = React.useContext(CurrentUserContext);
+
     const [visibleLabel, setVisibleLabel] = React.useState(false);
-    const textLabel = `${mainPage ? 'Войдите, чтобы сохранять статьи' : 'Убрать из сохранённых'}`;
     
     return (
         <div className="new-card-container">
@@ -15,7 +17,11 @@ function Card({date, title, article, sourceOfInformation, category = ''}) {
                     !mainPage ? <label className="new-card-container__category">{category}</label> : null
                 }
                 {
-                    visibleLabel ? <label className="new-card-container__inform-label">{textLabel}</label> : null
+                    visibleLabel && (!loggedIn && mainPage) ? <label className="new-card-container__inform-label">Войдите, чтобы сохранять статьи</label> : null
+                }
+                
+                {
+                    visibleLabel && (loggedIn && !mainPage) ? <label className="new-card-container__inform-label">Убрать из сохранённых</label> : null
                 }
                 <button 
                     onMouseOver={() => setVisibleLabel(true)}

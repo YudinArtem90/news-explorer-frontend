@@ -8,6 +8,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
+import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 
 function App(props) {
   
@@ -24,35 +25,35 @@ function App(props) {
     <div className="root">
 
     <CurrentPageContext.Provider value={props.location.pathname === '/'}>
-      
-    <Header setShowModal={setShowModal}/>
+      <CurrentUserContext.Provider value={loggedIn}>
+        <Header setShowModal={setShowModal}/>
 
-    <Switch>
+        <Switch>
 
-      {/* <Route path='/saved-news'>
-        
-      </Route> */}
+          {/* <Route path='/saved-news'>
+            
+          </Route> */}
 
-      <ProtectedRoute 
-        path="/saved-news" 
-        loggedIn={loggedIn} 
-        component={SavedNewsHeader}
-        mainThis={this}
-      />
+          <ProtectedRoute 
+            path="/saved-news" 
+            loggedIn={loggedIn} 
+            component={SavedNewsHeader}
+            mainThis={this}
+          />
 
-      <ProtectedRoute 
-        path="/" 
-        loggedIn={loggedIn} 
-        component={Main}
-        mainThis={this}
-      />
+          <ProtectedRoute 
+            path="/" 
+            loggedIn={loggedIn} 
+            component={Main}
+            mainThis={this}
+          />
 
-    </Switch>
+        </Switch>
 
-    <Footer/>
+        <Footer/>
 
-    <PopupWithForm showModal={showModal} closeModal={closeModal}/>
-
+        <PopupWithForm showModal={showModal} closeModal={closeModal}/>
+      </CurrentUserContext.Provider>
     </CurrentPageContext.Provider>
     </div>
   );
