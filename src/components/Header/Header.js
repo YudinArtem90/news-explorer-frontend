@@ -28,7 +28,12 @@ function Header(props) {
     return (
       <div className={`header ${openMenu ? 'header_theme_black' : ''} ${savedNews ? 'header_saved-news_page' : 'header_main_page'}`}>
         <div className="header__left-container">
-            <h2 className={`header__text ${savedNews ? 'header__text_theme_black' : 'header__text_theme_white'}`}>NewsExplorer</h2>
+            {
+              openMenu ? 
+                <h2 className={`header__text header__text_theme_white`}>NewsExplorer</h2>
+                :  
+                <h2 className={`header__text ${savedNews ? 'header__text_theme_black' : 'header__text_theme_white'}`}>NewsExplorer</h2>
+            }
         </div>
         <div className="header__right-container">
 
