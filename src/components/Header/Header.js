@@ -17,6 +17,10 @@ function Header(props) {
       props.setShowModal(true);
     }
 
+    const logOutAccount = () => {
+      // разлогинется
+      window.location.replace("/");
+    }
     // console.log('savedNews', savedNews);
     // console.log('mainPage', mainPage);
     // console.log('innerWidth', window.innerWidth);
@@ -34,7 +38,9 @@ function Header(props) {
               {
                 mainPage ? 
                 <button className="header__authorization" onClick={openModal}>Авторизоваться</button> : 
-                <button className="header__button-back">Грета 
+                <button className="header__button-back"
+                  onClick={logOutAccount}
+                >Грета 
                   <i className="header__button-icon"/>
                 </button>
               }
