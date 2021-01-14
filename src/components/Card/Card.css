@@ -26,14 +26,27 @@
     background-position: center;
     border: 2px solid #B6BCBF;
     cursor: pointer;
+    outline: none;
 }
 
-.new-card-container__button_save-articles{
-    background-image: url(../../images/rectangle1.svg);
+.new-card-container__button-save-articles{
+    background-image: url(../../images/rectangle-white.svg);
 }
 
-.new-card-container__button_delete-articles{
+.new-card-container__button-save-articles:hover{
+    background-image: url(../../images/rectangle_black.svg);
+}
+
+.new-card-container__button-save-articles_active{
+    background-image: url(../../images/rectangle-active.svg);
+}
+
+.new-card-container__button-delete-articles{
     background-image: url(../../images/delete-button.svg);
+}
+
+.new-card-container__button-delete-articles:hover{
+    background-image: url(../../images/delete-button-black.svg);
 }
 
 .new-card-container__date{

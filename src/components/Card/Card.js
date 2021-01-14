@@ -9,7 +9,19 @@ function Card({date, title, article, sourceOfInformation, category = ''}) {
     const loggedIn = React.useContext(CurrentUserContext);
 
     const [visibleLabel, setVisibleLabel] = React.useState(false);
-    
+    const [cardBookmarks, setCardBookmarks] = React.useState(false);
+    let classButtonCard = `new-card-container__button `;
+
+    if(cardBookmarks){
+        classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles_active' : 'new-card-container__button-delete-articles'}`;
+    }else{
+        classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles' : 'new-card-container__button-delete-articles'}`;
+    }
+
+    const addCardBookmarks = () => {
+        setCardBookmarks(!cardBookmarks);
+    }
+
     return (
         <div className="new-card-container">
             <div className="new-card-container__header">
@@ -26,7 +38,8 @@ function Card({date, title, article, sourceOfInformation, category = ''}) {
                 <button 
                     onMouseOver={() => setVisibleLabel(true)}
                     onMouseOut={() => setVisibleLabel(false)}
-                    className={`new-card-container__button ${mainPage ? 'new-card-container__button_save-articles' : 'new-card-container__button_delete-articles'}`}
+                    className={classButtonCard}
+                    onClick={addCardBookmarks}
                 ></button>
             </div>
             <div className="new-card-container__main">
