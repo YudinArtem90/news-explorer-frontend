@@ -6,8 +6,10 @@ import Footer from '../Footer/Footer';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
+import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
+import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 
-function App() {
+function App(props) {
   
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [showModal, setShowModal] = React.useState(false);
@@ -21,30 +23,39 @@ function App() {
   return (
     <div className="root">
 
-      <Header setShowModal={setShowModal}/>
+    <CurrentPageContext.Provider value={props.location.pathname === '/'}>
+      
+    <Header setShowModal={setShowModal}/>
 
-      <Switch>
+    <Switch>
 
-        <Route path='/saved-news'>
-          
-        </Route>
+      {/* <Route path='/saved-news'>
+        
+      </Route> */}
 
-        <ProtectedRoute 
-          path="/" 
-          loggedIn={loggedIn} 
-          component={Main}
-          mainThis={this}
-        />
+      <ProtectedRoute 
+        path="/saved-news" 
+        loggedIn={loggedIn} 
+        component={SavedNewsHeader}
+        mainThis={this}
+      />
 
-      </Switch>
+      <ProtectedRoute 
+        path="/" 
+        loggedIn={loggedIn} 
+        component={Main}
+        mainThis={this}
+      />
 
-      <Footer/>
-      {/* {
-        showModal ? <PopupWithForm showModal={showModal} closeModal={closeModal}/> : null
-      } */}
-      <PopupWithForm showModal={showModal} closeModal={closeModal}/>
+    </Switch>
+
+    <Footer/>
+
+    <PopupWithForm showModal={showModal} closeModal={closeModal}/>
+
+    </CurrentPageContext.Provider>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);
