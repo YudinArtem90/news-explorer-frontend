@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import * as yup from 'yup';
 
-function Form({email, password, name, title, labelButton, linkName}) {
+function Form(props) {
 
+    const { email, password, name, title, labelButton, component: LinkForm } = props;
     const nameCardRef = React.useRef();
     const emailCardRef = React.useRef();
     const passwordCardRef = React.useRef();
@@ -146,7 +147,7 @@ function Form({email, password, name, title, labelButton, linkName}) {
                     >{labelButton}</button>
                 </>
             </form>
-            <p className="container-form__info">или <Link className="container-form__link" to="/sign-in">{linkName}</Link></p>
+            <p className="container-form__info">или <LinkForm {...props}/></p>
         </div>
     );
   }

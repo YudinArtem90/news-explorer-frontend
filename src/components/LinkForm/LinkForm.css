@@ -1,0 +1,11 @@
+.container-form__link{
+    text-decoration: none;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    cursor: pointer;
+    color: #2F71E5;
+    display: contents;
+}
