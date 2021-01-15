@@ -64,7 +64,7 @@ function Header(props) {
           openMenu ? 
               <div className="header__menu-mobile">
                 <Navigation mainPage={mainPage} openMenu={openMenu} savedNews={savedNews}/>
-                <button className="header__authorization" onClick={openModal}>Авторизоваться</button>
+                { mainPage ? <button className="header__authorization" onClick={openModal}>Авторизоваться</button> : null }
               </div> : null
         }
       </div>

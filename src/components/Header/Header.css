@@ -114,7 +114,6 @@
 }
 
 .header__menu-mobile{
-    height: 230px;
     position: absolute;
     background-color:#1A1B22;
     width: 100%;
@@ -163,6 +162,7 @@
     .header__authorization{
         width: 288px;
         height: 56px;
+        margin-bottom: 20px;
     }
 
     .header__right-container{
@@ -177,6 +177,11 @@
 
     .header__left-container{
         width: 50%;
+    }
+
+    .header__menu-mobile{
+        justify-content: flex-start;
+        padding-left: 16px;
     }
 }
 
