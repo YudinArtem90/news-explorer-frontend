@@ -3,9 +3,15 @@ import React from 'react';
 
 function LinkForm({setStatus, status}) {
 
+    const onClickLink = () => {
+        const statusLink = status === 'authorization' ? 'registration' : 'authorization';
+        setStatus(statusLink);
+    }
+
     return (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <p className="container-form__link" onClick={() => setStatus(status === 'authorization' ? 'registration' : 'authorization')}>{status === 'authorization' ? 'Зарегистрироваться': 'Войти'}</p>
+        <p className="container-form__link" onClick={onClickLink}>
+            {status === 'authorization' ? 'Зарегистрироваться': 'Войти'}
+        </p>
     );
   }
   

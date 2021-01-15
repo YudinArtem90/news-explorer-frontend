@@ -1,11 +1,10 @@
 import './Form.css';
-import { Link } from 'react-router-dom';
 import React from 'react';
 import * as yup from 'yup';
 
 function Form(props) {
 
-    const { email, password, name, title, labelButton, component: LinkForm } = props;
+    const { email, password, name, title, labelButton, component: LinkForm, status} = props;
     const nameCardRef = React.useRef();
     const emailCardRef = React.useRef();
     const passwordCardRef = React.useRef();
@@ -14,6 +13,17 @@ function Form(props) {
     const [ errorEmail, setErrorEmail ] = React.useState(false);
     const [ errorPassword, setErrorPassword ] = React.useState(false);
     const [ errorName, setErrorName ] = React.useState(false);
+
+    React.useEffect(() => {
+        validationAll();
+    }, 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+        errorEmail, 
+        errorPassword, 
+        errorName,
+        status
+    ]);
 
     const validationEmail = (event) => {
         let schema = yup.object({
@@ -25,11 +35,9 @@ function Form(props) {
         })
         .then((e) => {
             setErrorEmail(false);
-            validationAll();
         })
         .catch(function (error) {
             setErrorEmail(true);
-            validationAll(); 
           });
     }
 
@@ -43,11 +51,9 @@ function Form(props) {
         })
         .then((e) => {
             setErrorPassword(false);
-            validationAll();
         })
         .catch(function (error) {
             setErrorPassword(true);
-            validationAll(); 
           });
     }
 
@@ -61,23 +67,33 @@ function Form(props) {
         })
         .then((e) => {
             setErrorName(false);
-            validationAll();
         })
         .catch(function (error) {
-            setErrorName(true); 
-            validationAll();
+            setErrorName(true);
           });
     }
 
     const validationAll = () => {
-        if(passwordCardRef.current.value !== ''&& nameCardRef.current.value !== '' && emailCardRef.current.value !== ''){
-            if(!errorEmail && !errorPassword && !errorName){
-                setDesabled(false);
+        if(status === 'authorization'){
+            if(passwordCardRef.current.value !== '' && emailCardRef.current.value !== ''){
+                if(!errorEmail && !errorPassword){
+                    setDesabled(false);
+                }else{
+                    setDesabled(true);
+                }
             }else{
                 setDesabled(true);
             }
         }else{
-            setDesabled(true);
+            if(passwordCardRef.current.value !== '' && nameCardRef.current.value !== '' && emailCardRef.current.value !== ''){
+                if(!errorEmail && !errorPassword && !errorName){
+                    setDesabled(false);
+                }else{
+                    setDesabled(true);
+                }
+            }else{
+                setDesabled(true);
+            }
         }
     }
 
@@ -147,7 +163,7 @@ function Form(props) {
                     >{labelButton}</button>
                 </>
             </form>
-            <p className="container-form__info">или <LinkForm {...props}/></p>
+            <div className="container-form__info">или <LinkForm {...props}/></div>
         </div>
     );
   }
