@@ -14,19 +14,19 @@ function App(props) {
   
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [showModal, setShowModal] = React.useState(false);
+  const [hideMenu, setHideMenu] = React.useState(false);
 
   const closeModal = () => {
+    setHideMenu(false);
     setShowModal(false);
   }
-
-  // console.log('showModal', showModal);
 
   return (
     <div className="root">
 
     <CurrentPageContext.Provider value={props.location.pathname === '/'}>
       <CurrentUserContext.Provider value={loggedIn}>
-        <Header setShowModal={setShowModal}/>
+        <Header setShowModal={setShowModal} hideMenu={hideMenu} setHideMenu={setHideMenu}/>
 
         <Switch>
 

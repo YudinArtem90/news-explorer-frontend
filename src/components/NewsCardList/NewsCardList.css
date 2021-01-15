@@ -51,6 +51,7 @@
     .news-card-list-container__button{
         width: 288px;
         height: 56px;
+        margin-top: 15px;
     }
 }
 

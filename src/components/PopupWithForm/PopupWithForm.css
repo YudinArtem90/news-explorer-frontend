@@ -41,7 +41,7 @@
 @media (max-width: 480px){
     .popup__main-container {
         width: 100%;
-        padding-top: 56px;
+        padding-top: 33px;
     }
 
     .popup__icon-close{

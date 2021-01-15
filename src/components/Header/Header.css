@@ -14,6 +14,10 @@
     box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
 }
 
+.header_hideMenu{
+    display: none;
+}
+
 .header_saved-news_page{
     box-shadow: inset 0px -1px 0px #E5E5E5;
 }
