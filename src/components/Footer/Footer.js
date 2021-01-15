@@ -12,8 +12,8 @@ function Footer() {
             <a href="https://praktikum.yandex.ru" className="footer__link" target="_blank" title="Яндекс.Практикум">Яндекс.Практикум</a>
         </nav>
         <div className="footer__container-icon">
-            <img src={github} alt="github" className="footer__icon"/>
-            <img src={facebook} alt="facebook" className="footer__icon"/>
+            <img src={github} alt="github" className="footer__icon" onClick={() => window.open('https://github.com/YudinArtem90')}/>
+            <img src={facebook} alt="facebook" className="footer__icon" onClick={() => window.open('https://www.facebook.com/tema.udin')}/>
         </div>
       </div>
     );
