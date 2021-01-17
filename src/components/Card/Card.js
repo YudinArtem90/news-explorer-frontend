@@ -28,8 +28,11 @@ function Card({date, title, article, sourceOfInformation, category = ''}) {
                 {
                     !mainPage ? <label className="new-card-container__category">{category}</label> : null
                 }
+
+                {/* && (!loggedIn && mainPage) ?  */}
                 {
-                    visibleLabel && (!loggedIn && mainPage) ? <label className="new-card-container__inform-label">Войдите, чтобы сохранять статьи</label> : null
+                    visibleLabel && mainPage ? 
+                    <label className="new-card-container__inform-label">Войдите, чтобы сохранять статьи</label> : null
                 }
                 
                 {
