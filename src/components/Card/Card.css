@@ -24,13 +24,14 @@
     width: 40px;
     background-repeat: no-repeat;
     background-position: center;
-    border: 2px solid #B6BCBF;
+    border: 1px solid #B6BCBF;
     cursor: pointer;
     outline: none;
 }
 
 .new-card-container__button-save-articles{
     background-image: url(../../images/rectangle-white.svg);
+    background-size: 14px;
 }
 
 .new-card-container__button-save-articles:hover{
@@ -39,10 +40,12 @@
 
 .new-card-container__button-save-articles_active{
     background-image: url(../../images/rectangle-active.svg);
+    background-size: 14px;
 }
 
 .new-card-container__button-delete-articles{
     background-image: url(../../images/delete-button.svg);
+    background-size: 24px;
 }
 
 .new-card-container__button-delete-articles:hover{

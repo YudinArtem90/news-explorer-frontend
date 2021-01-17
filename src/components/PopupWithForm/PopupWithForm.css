@@ -70,5 +70,6 @@
 
     .popup__icon-close{
         left: 36px;
+        width: 40px;
     }
 }
