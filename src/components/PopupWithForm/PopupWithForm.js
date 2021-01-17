@@ -37,6 +37,7 @@ class PopupWithForm extends React.Component{
   }
 
   handleClickOutside(event) {
+    // eslint-disable-next-line react/no-direct-mutation-state
     if(this.state.firstDiscovery){
       if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
         this.close()
@@ -44,6 +45,7 @@ class PopupWithForm extends React.Component{
       }
     }
 
+    // eslint-disable-next-line react/no-direct-mutation-state
     this.state.firstDiscovery = true;
   }
 
@@ -65,6 +67,7 @@ class PopupWithForm extends React.Component{
     const { status } = this.state;
 
     if(showModal){
+      // eslint-disable-next-line react/no-direct-mutation-state
       this.state.firstDiscovery = false;
     }
 

@@ -113,6 +113,7 @@ function Form(props) {
                             onChange={validationEmail}
                             required 
                             ref={emailCardRef}
+                            placeholder="Введите почту"
                         ></input>
                         {
                             errorEmail ? <span className="form__error-input">Не правильный формат e-mail</span> : null
@@ -130,6 +131,7 @@ function Form(props) {
                             required 
                             ref={passwordCardRef}
                             type="password" 
+                            placeholder="Введите пароль"
                         ></input>
                         {
                             errorPassword ? <span className="form__error-input">Пароль должен быть более 6 символов</span> : null
@@ -148,6 +150,7 @@ function Form(props) {
                             onChange={validationName}
                             required 
                             ref={nameCardRef}
+                            placeholder="Введите своё имя"
                         ></input>
                         {
                             errorName ? <span className="form__error-input">Имя должно быть более 2-х символов</span> : null

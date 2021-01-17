@@ -1,8 +1,7 @@
 import './Header.css';
 import React from 'react';
 import Navigation from '../Navigation/Navigation';
-// import logout from '../../images/logout.svg';
-import { Link, withRouter } from 'react-router-dom'; 
+import { withRouter } from 'react-router-dom'; 
 
 function Header(props) {
 

@@ -31,12 +31,18 @@
     border: 0;
     border-bottom: 1px solid #dfdcdc;
     outline: none;
+    height: 32px;
 }
 
 .form__input:focus{
     border: 0;
     border-bottom: 1px solid #000000;
     outline: none;
+}
+
+.form__input::placeholder{
+    color: #000000;
+    opacity: 0.2;
 }
 
 .form__error-input{
