@@ -108,7 +108,7 @@ function Form(props) {
                         <label className="form__label">Email</label>
                         <input 
                             className="form__input"
-                            type="text" 
+                            type="email" 
                             name="emailPerson" 
                             onChange={validationEmail}
                             required 
