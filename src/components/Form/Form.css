@@ -80,9 +80,7 @@
     line-height: 15px;
     text-align: center;
     display: block;
-    margin-bottom: 8px;
     color: #FF0000;
-    /* visibility: hidden; */
 }
 
 .container-form__info{
@@ -106,12 +104,17 @@
         margin: 16px 17px;
     }
 
-    .form__container-input:first-of-type{
+    .form__container-input{
         margin-bottom: 30px;
     }
 
     .form__container-input:last-of-type{
-        margin-bottom: 15px;
+        margin-bottom: 0;
+    }
+
+    .form__error-form{
+        margin-bottom: 5px;
+        margin-top: 5px;
     }
 }
 
@@ -127,5 +130,10 @@
 
     .form__container-input{
         margin-bottom: 31px;
+    }
+
+    .form__error-form{
+        margin-bottom: 8px;
+        margin-top: 17px;
     }
 }
