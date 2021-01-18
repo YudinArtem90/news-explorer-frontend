@@ -3,7 +3,7 @@ import React from 'react';
 import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 
-function Card({date, title, article, sourceOfInformation, category = ''}) {
+function Card({date, title, article, sourceOfInformation, category = '', img}) {
 
     const mainPage = React.useContext(CurrentPageContext);
     const loggedIn = React.useContext(CurrentUserContext);
@@ -24,7 +24,7 @@ function Card({date, title, article, sourceOfInformation, category = ''}) {
 
     return (
         <div className="new-card-container">
-            <div className="new-card-container__header">
+            <div className="new-card-container__header" style={{ backgroundImage: `url(${img})` }}>
                 {
                     !mainPage ? <label className="new-card-container__category">{category}</label> : null
                 }
@@ -49,7 +49,7 @@ function Card({date, title, article, sourceOfInformation, category = ''}) {
                 <label className="new-card-container__date">{date}</label>
                 <h2 className="new-card-container__title">{title}</h2>
                 <p className="new-card-container__article">{article}</p>
-                <label className="new-card-container__source-of-information">{sourceOfInformation}</label>
+                <label className="new-card-container__source-of-information">{sourceOfInformation !== null ? sourceOfInformation : '-'}</label>
             </div>
         </div>
     );

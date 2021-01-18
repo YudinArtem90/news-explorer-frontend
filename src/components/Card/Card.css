@@ -6,13 +6,12 @@
 }
 
 .new-card-container__header{
-    background-image: url(../../images/image_08.jpg);
     background-position: center;
     background-repeat: no-repeat;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     position: sticky;
-    background-size: cover;
+    background-size: contain;
 }
 
 

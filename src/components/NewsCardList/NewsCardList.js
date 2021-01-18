@@ -8,6 +8,32 @@ function NewsCardList(props) {
 
     // const mainPage = props.location.pathname === '/';
     const mainPage = React.useContext(CurrentPageContext);
+    const { news, categoryName, numberNewsItems } = props;
+    const [numberСards, setNumberСards] = React.useState(numberNewsItems > 3 ? 3 : numberNewsItems);
+
+    const showMore = () => {
+        setNumberСards(numberСards + 3);
+        getNews();
+    }
+
+    const getNews = () => {
+        let newsCards = [];
+
+        for(let i = 0; i < numberСards; i++){
+            const { publishedAt, title, description, author, urlToImage } = news[i];
+            console.log('news[i]', news[i]);
+            newsCards[i] = <Card
+                date={publishedAt} 
+                title={title} 
+                article={description} 
+                sourceOfInformation={author}
+                category={categoryName}
+                img={urlToImage}
+            />;
+        }
+
+        return newsCards;
+    }
 
     return (
         <div className={`news-card-list-container ${mainPage ? 'news-card-list-container_theme_main-page' : 'news-card-list-container_theme_saved-news'}`}>
@@ -17,66 +43,15 @@ function NewsCardList(props) {
             }
             
             <div className="news-card-list-container__card-list">
-            <>
-                <Card
-                    date={'2 августа, 2019'} 
-                    title={'Национальное достояние – парки'} 
-                    article={'В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складываться система национальных парков – охраняемых территорий, где и сегодня каждый может приобщиться к природе. dfgdf dfg dfg df gdfg dfgfdgdfgdfgdfgdfgdfgg dfg dfg d dfg dfg '} 
-                    sourceOfInformation={'Лента.ру'}
-                    category={'Природа'}
-                />
-            </>
 
-
-            <>
-                <Card
-                    date={'2 августа, 2019'} 
-                    title={'Национальное достояние – парки'} 
-                    article={'В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складыв...'} 
-                    sourceOfInformation={'Медиазона'}
-                    category={'Природа'}
-                />
-            </>
-
-
-
-            <>
-                <Card
-                    date={'8 декабря, 2019'} 
-                    title={'Лесные огоньки: история одной фотографии'} 
-                    article={'В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складыв...'} 
-                    sourceOfInformation={'Медуза'}
-                    category={'Природа'}
-                />
-            </>
-
-
-            <>
-                <Card
-                    date={'8 декабря, 2019'} 
-                    title={'«Первозданная тайга»: новый фотопроект Игоря Шпиленка'} 
-                    article={'В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складываться система национальных парков – охраняемых территорий, где и сегодня каждый может приобщиться к природе.'} 
-                    sourceOfInformation={'Лента.ру'}
-                    category={'Природа'}
-                />
-            </>
-
-
-
-            <>
-                <Card
-                    date={'8 декабря, 2019'} 
-                    title={'Национальное достояние – парки'} 
-                    article={'В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складываться система национальных парков – охраняемых территорий, где и сегодня каждый может приобщиться к природе.'} 
-                    sourceOfInformation={'Лента.ру'}
-                    category={'Природа'}
-                />
-            </>
+                {
+                    getNews()
+                }
 
             </div>
 
             {
-                mainPage ?  <button className="news-card-list-container__button">Показать еще</button> : null
+                mainPage && (numberСards < numberNewsItems) ?  <button className="news-card-list-container__button" onClick={showMore}>Показать еще</button> : null
             }
             
         </div>
