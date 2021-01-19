@@ -54,6 +54,7 @@
     color: #FF0000;
     position: absolute;
     top: 35px;
+    margin-top: 16px;
 }
 
 .form__button{
@@ -71,6 +72,7 @@
     background: #2F71E5;
     box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 .form__button_theme_disable{

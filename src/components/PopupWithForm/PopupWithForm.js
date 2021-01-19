@@ -76,7 +76,14 @@ class PopupWithForm extends React.Component{
         <div className="popup__main-container" ref={this.setWrapperRef}>
           <img src={logoClose} alt='кнопка закрытия' className="popup__icon-close" onClick={this.close}/>
           <div className="popup__footer-container">
-            {
+                <Form
+                  title={'Вход'}
+                  labelButton={'Войти'}
+                  component={LinkForm}
+                  setStatus={this.setStatus}
+                  status={status}
+                />
+            {/* {
               status === 'authorization' ?
                 <Form
                   email
@@ -97,7 +104,7 @@ class PopupWithForm extends React.Component{
                   setStatus={this.setStatus}
                   status={status}
                 />
-            }
+            } */}
             
           </div>
         </div>
