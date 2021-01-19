@@ -1,0 +1,73 @@
+# создаёт пользователя с переданными в теле
+# email, password и name
+POST /signup
+
+
+http://localhost:3001/signup
+
+true
+{
+    "email": "artemyudin@measdasdd.com",
+    "password": "123456789Qw1o4q3",
+    "name": "Artem"
+}
+
+
+false
+{
+    "email": "artemyudinasdd.com",
+    "password": "123456789Qw1o4q3",
+    "name": "Artem"
+}
+
+
+
+# проверяет переданные в теле почту и пароль
+# и возвращает JWT
+POST /signin
+
+true
+{
+    "email": "artemyudin@measdasdd11.com",
+    "password": "osdfsdfsfdfsdf4q3"
+}
+
+
+-----------------------------------------------------
+Авторизованные
+
+# возвращает информацию о пользователе (email и имя)
+GET /users/me
+
+http://localhost:3001/users/me
+
+# возвращает все сохранённые пользователем статьи
+GET /articles
+
+http://localhost:3001/articles
+
+# создаёт статью с переданными в теле
+# keyword, title, text, date, source, link и image
+POST /articles
+
+http://localhost:3001/articles
+
+true
+{
+    "keyword": "artemyudin@measdasdd11.com",
+    "title": "osdfsdfsfdfsdf4q3",
+    "text": "artemyudin@measdasdd11.com",
+    "date": "osdfsdfsfdfsdf4q3",
+    "source": "artemyudin@measdasdd11.com",
+    "link": "https://demotivation.ru/wp-content/upl",
+    "image": "https://demotivation.ru/wp-content/uploads/2020/01/Canada_Parks_Lake_Mountains_Forests_Scenery_Rocky_567540_3840x2400-scaled.jpg"
+}
+
+# удаляет сохранённую статью  по _id
+DELETE /articles/articleId
+
+false
+http://localhost:3001/articles/5fd4d2d1ce758b464006a447 - "Переданы некорректные данные."
+http://localhost:3001/articles/5fd4d2d1ce758b464006a4434 - "Статьи нет в базе."
+не моя карточка
+http://localhost:3001/articles/5fd4d2d1ce758b464006a443 - Нельзя удалить данную статью, так как она создана не Вами.
