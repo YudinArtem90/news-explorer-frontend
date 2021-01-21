@@ -3,6 +3,7 @@ class Status{
         this._searchDisabled = 0;
         this._searchIsActive = 1;
         this._searchNothingFound = 2;
+        this._searchError = 3;
     }
 
     searchDisabled(){
@@ -15,6 +16,10 @@ class Status{
 
     searchNothingFound(){
         return this._searchNothingFound;
+    }
+
+    searchError(){
+        return this._searchError;
     }
 }
 

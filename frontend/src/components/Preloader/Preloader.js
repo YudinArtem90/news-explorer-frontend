@@ -25,6 +25,13 @@ function Preloader({searchStatus}) {
         </div>
       </div> : null
       }
+
+      {
+        searchStatus === status.searchError() ?
+          <div className="preloader-container">
+            <p className="preloader-container__text-inform">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p>
+          </div> : null
+      }
       
       </>
     );
