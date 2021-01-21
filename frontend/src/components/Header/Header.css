@@ -146,12 +146,19 @@
 }
 
 .header__button-icon{
-    background-image: url(../../images/logout.svg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 20px;
     height: 20px;
     margin-left: 10px;
+}
+
+.header__button-icon_theme_black{
+    background-image: url(../../images/logout-black.svg);
+}
+
+.header__button-icon_theme_white{
+    background-image: url(../../images/logout-white.svg);
 }
 
 @media (max-width: 480px){

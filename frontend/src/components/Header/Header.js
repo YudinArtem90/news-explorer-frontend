@@ -2,6 +2,7 @@ import './Header.css';
 import React from 'react';
 import Navigation from '../Navigation/Navigation';
 import { withRouter } from 'react-router-dom'; 
+import { CurrentUserContext } from '../../utils/contexts/user/CurrentUserContext';
 
 function Header(props) {
 
@@ -9,6 +10,7 @@ function Header(props) {
     const { hideMenu, setHideMenu } = props;
     const savedNews = props.location.pathname === '/saved-news';
     const mainPage = props.location.pathname === '/';
+    const currentUser = React.useContext(CurrentUserContext);
 
     const openModal = () => {
       props.setShowModal(true);
@@ -23,6 +25,8 @@ function Header(props) {
       setHideMenu(true);
       openModal();
     }
+
+    console.log('currentUser',currentUser);
 
     return (
       <div className={`header ${openMenu ? 'header_theme_black' : ''} ${savedNews ? 'header_saved-news_page' : 'header_main_page'} ${hideMenu && 'header_hideMenu'}`}>
@@ -41,12 +45,14 @@ function Header(props) {
               <Navigation mainPage={mainPage} openMenu={openMenu} savedNews={savedNews}/>
               {
                 mainPage ? 
-                <button className="header__authorization" onClick={openModal}>Авторизоваться</button> : 
-                <button className="header__button-back"
-                  onClick={logOutAccount}
-                >Грета 
-                  <i className="header__button-icon"/>
-                </button>
+                  currentUser.loggedIn ?
+                    <button className="header__button-back" onClick={logOutAccount}>{currentUser.name} 
+                      <i className="header__button-icon header__button-icon_theme_white"/>
+                    </button>
+                    : <button className="header__authorization" onClick={openModal}>Авторизоваться</button> : 
+                      <button className="header__button-back" onClick={logOutAccount}>{currentUser.name} 
+                        <i className="header__button-icon header__button-icon_theme_black"/>
+                      </button>
               }
             </div>
 

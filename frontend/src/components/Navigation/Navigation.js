@@ -1,16 +1,19 @@
 import './Navigation.css';
 import { Link } from 'react-router-dom'; 
+import { CurrentUserContext } from '../../utils/contexts/user/CurrentUserContext';
+import React from 'react';
 
 function Navigation({mainPage , openMenu, savedNews}) {
     
     const classLink = `header__menu-link ${savedNews ? 'header__menu-link_theme_black' : 'header__menu-link_theme_white'}`;
     const classLi = `header__menu-li ${savedNews ? 'header__menu-li_active-theme_black' : 'header__menu-li_active-theme_white'}`;
+    const currentUser = React.useContext(CurrentUserContext);
 
     return (
         <>
             <ul className="header__menu-ul-desktop">
                 {
-                    mainPage ?
+                    mainPage && !currentUser.loggedIn  ?
                     <li className={classLi}><Link to="/" className={classLink}>Главная</Link></li>
                     :
                     <>
