@@ -3,15 +3,12 @@ import ContainerEmail from '../ContainerEmail/ContainerEmail';
 import ContainerPassword from '../ContainerPassword/ContainerPassword';
 import ContainerName from '../ContainerName/ContainerName';
 
-function Register({setDisabled}){
+function Register(props){
 
+    const {setDisabled, valueEmail, valuePassword, valueName, setValueEmail, setValuePassword, setValueName} = props;
     const [ errorEmail, setErrorEmail ] = React.useState(false);
     const [ errorPassword, setErrorPassword ] = React.useState(false);
     const [ errorName, setErrorName ] = React.useState(false);
-
-    const [ valueEmail, setValueEmail ] = React.useState('');
-    const [ valuePassword, setValuePassword ] = React.useState('');
-    const [ valueName, setValueName ] = React.useState('');
 
     React.useEffect(() => {
         validationAll();

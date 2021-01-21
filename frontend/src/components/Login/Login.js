@@ -2,12 +2,10 @@ import React from 'react';
 import ContainerEmail from '../ContainerEmail/ContainerEmail';
 import ContainerPassword from '../ContainerPassword/ContainerPassword';
 
-function Login({setDisabled}){
+function Login({setDisabled, valueEmail, valuePassword, setValueEmail, setValuePassword}){
 
     const [ errorEmail, setErrorEmail ] = React.useState(false);
     const [ errorPassword, setErrorPassword ] = React.useState(false);
-    const [ valueEmail, setValueEmail ] = React.useState('');
-    const [ valuePassword, setValuePassword ] = React.useState('');
 
     React.useEffect(() => {
         validationAll();

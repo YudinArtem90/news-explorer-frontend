@@ -30,7 +30,7 @@ function ContainerPassword({setErrorPassword, errorPassword, setValuePassword}){
                 placeholder="Введите пароль"
             ></input>
             {
-                errorPassword ? <span className="form__error-input">Пароль должен быть более 6 символов</span> : null
+                errorPassword ? <span className="form__error-input">Пароль должен быть более 8 символов</span> : null
             }
         </div>
     );

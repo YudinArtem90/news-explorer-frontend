@@ -9,7 +9,7 @@ function LinkForm({setStatus, status}) {
     }
 
     return (
-        <p className="container-form__link" onClick={onClickLink}>
+        <p className="popup__link" onClick={onClickLink}>
             {status === 'authorization' ? 'Зарегистрироваться': 'Войти'}
         </p>
     );
