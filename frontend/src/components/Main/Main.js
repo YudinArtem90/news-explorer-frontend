@@ -6,9 +6,12 @@ import NewsCardList from '../NewsCardList/NewsCardList';
 import Preloader from '../Preloader/Preloader';
 import status from '../../utils/statusSearch/status';
 import newsApi from '../../utils/api/NewsApi';
+import workingWithNews from '../../utils/WorkingWithNews/WorkingWithNews';
+import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 
-function Main() {
+function Main(props) {
 
+    const currentUser = React.useContext(CurrentUserContext);
     const [searchStatus, setSearchStatus] = React.useState(status.searchDisabled());
     const [newsData, setNewsData] = React.useState({
       categoryName: '', 
@@ -30,21 +33,39 @@ function Main() {
         .then(request => { 
           const newsArray = request.articles;
           if(newsArray.length){
-            setNewsData({
+
+            const data = {
               categoryName: news, 
               news: newsArray,
               numberNewsItems: request.totalResults
-            });
+            };
+
+            setNewsData(data);
+            workingWithNews.saveNews(data);
             setSearchStatus(status.searchDisabled());
           }else{
             setSearchStatus(status.searchNothingFound());
           }
         })
         .catch(error => {
-          setSearchStatus(status.searchNothingFound());
+          setSearchStatus(status.searchError());
         });
     }
+
+    React.useEffect(() => {
+        setNewsData({
+          categoryName: '', 
+          news: [],
+          numberNewsItems: 0
+        });
+    }, [currentUser]);
     
+    React.useEffect(() => {
+      if(workingWithNews.checkNews()){
+        setNewsData(workingWithNews.getNews());
+      }
+    }, []);
+
     return (
       <div className="main">
         <SearchContainer searchNews={searchNews}/>

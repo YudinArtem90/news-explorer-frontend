@@ -10,6 +10,7 @@ import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 import workingWithToken from '../../utils/workingWithToken/WorkingWithToken';
+import workingWithNews from '../../utils/WorkingWithNews/WorkingWithNews';
 
 function App(props) {
   
@@ -29,6 +30,12 @@ function App(props) {
   const onSignOut = () => { 
     window.location.replace("/"); // заменить
     workingWithToken.deleteToken();
+    workingWithNews.deleteNews();
+    setCurrentUser({
+      loggedIn : false,
+      email: '',
+      name: ''
+    });
   }
 
   React.useEffect(() => {
@@ -64,7 +71,7 @@ function App(props) {
 
 
             <Route path='/' exec>
-              <Main loggedIn={currentUser.loggedIn} mainThis={this}/>
+              <Main mainThis={this}/>
             </Route>
           
           </Switch>

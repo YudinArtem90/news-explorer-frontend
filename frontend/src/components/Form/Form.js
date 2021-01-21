@@ -4,6 +4,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import workingWithToken from '../../utils/workingWithToken/WorkingWithToken';
 import MainApi from '../../utils/api/MainApi';
+import workingWithNews from '../../utils/WorkingWithNews/WorkingWithNews';
 
 function Form(props) {
 
@@ -22,6 +23,7 @@ function Form(props) {
             .getUser()
             .then((user) => {
                 if(user){
+                    workingWithNews.deleteNews();
                     setCurrentUser({
                         loggedIn : true,
                         email: user.email,
