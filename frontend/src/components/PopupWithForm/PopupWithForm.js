@@ -8,6 +8,7 @@ class PopupWithForm extends React.Component{
     super(props);
     this.state = {
       firstDiscovery : false, // нужен для того, что бы при первом открытии модалки не сработал close
+      // status: 'Пользователь успешно зарегистрирован!',
       status: 'authorization'
     };
 
@@ -63,7 +64,7 @@ class PopupWithForm extends React.Component{
 
   render() {
 
-    const { showModal } = this.props;
+    const { showModal, setLoggedIn } = this.props;
     const { status } = this.state;
 
     if(showModal){
@@ -76,36 +77,25 @@ class PopupWithForm extends React.Component{
         <div className="popup__main-container" ref={this.setWrapperRef}>
           <img src={logoClose} alt='кнопка закрытия' className="popup__icon-close" onClick={this.close}/>
           <div className="popup__footer-container">
-                <Form
-                  title={'Вход'}
-                  labelButton={'Войти'}
-                  component={LinkForm}
-                  setStatus={this.setStatus}
-                  status={status}
-                />
-            {/* {
-              status === 'authorization' ?
-                <Form
-                  email
-                  password
-                  title={'Вход'}
-                  labelButton={'Войти'}
-                  component={LinkForm}
-                  setStatus={this.setStatus}
-                  status={status}
-                /> : 
-                <Form
-                  email
-                  password
-                  name
-                  title={'Регистрация'}
-                  labelButton={'Зарегистрироваться'}
-                  component={LinkForm}
-                  setStatus={this.setStatus}
-                  status={status}
-                />
-            } */}
-            
+
+          {
+              status === 'authorization' || status === 'registration' ?
+              <>
+                <div className="popup__container-with-link popup__container-with-link_theme_form">или <LinkForm setStatus={this.setStatus} status={status}/></div>
+                  <Form
+                    title={'Вход'}
+                    labelButton={'Войти'}
+                    component={LinkForm}
+                    setStatus={this.setStatus}
+                    status={status}
+                    setLoggedIn={setLoggedIn}
+                  />
+                </> : 
+                <>
+                  <div className="popup__container-with-link popup__container-with-link_theme_info-successfully"><LinkForm setStatus={this.setStatus} status={status}/></div>
+                  <h2 className="popup__info-successfully">{status}</h2>
+                </>
+          }
           </div>
         </div>
       </div>
