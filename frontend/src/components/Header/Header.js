@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../../utils/contexts/user/CurrentUserContext
 function Header(props) {
 
     const [openMenu, setOpenMenu] = React.useState(false);
-    const { hideMenu, setHideMenu } = props;
+    const { hideMenu, setHideMenu, onSignOut } = props;
     const savedNews = props.location.pathname === '/saved-news';
     const mainPage = props.location.pathname === '/';
     const currentUser = React.useContext(CurrentUserContext);
@@ -16,17 +16,11 @@ function Header(props) {
       props.setShowModal(true);
     }
 
-    const logOutAccount = () => {
-      window.location.replace("/");
-    }
-
     const openMobileMenu = () => {
       setOpenMenu(false);
       setHideMenu(true);
       openModal();
     }
-
-    console.log('currentUser',currentUser);
 
     return (
       <div className={`header ${openMenu ? 'header_theme_black' : ''} ${savedNews ? 'header_saved-news_page' : 'header_main_page'} ${hideMenu && 'header_hideMenu'}`}>
@@ -42,15 +36,15 @@ function Header(props) {
 
 
             <div className="header__menu-desktop">
-              <Navigation mainPage={mainPage} openMenu={openMenu} savedNews={savedNews}/>
+              <Navigation mainPage={mainPage} openMenu={openMenu} savedNews={savedNews} />
               {
                 mainPage ? 
                   currentUser.loggedIn ?
-                    <button className="header__button-back" onClick={logOutAccount}>{currentUser.name} 
+                    <button className="header__button-log-out-account header__button-log-out-account_theme_white" onClick={onSignOut}>{currentUser.name} 
                       <i className="header__button-icon header__button-icon_theme_white"/>
                     </button>
                     : <button className="header__authorization" onClick={openModal}>Авторизоваться</button> : 
-                      <button className="header__button-back" onClick={logOutAccount}>{currentUser.name} 
+                      <button className="header__button-log-out-account header__button-log-out-account_theme_black" onClick={onSignOut}>{currentUser.name} 
                         <i className="header__button-icon header__button-icon_theme_black"/>
                       </button>
               }
