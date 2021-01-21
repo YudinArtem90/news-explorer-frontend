@@ -6,7 +6,7 @@ import workingWithUser from '../../utils/workingWithUser/workingWithUser';
 
 function Form(props) {
 
-    const { title, labelButton, component: LinkForm, status, setLoggedIn, setStatus} = props;
+    const { status, setLoggedIn, setStatus} = props;
     const [ disabled, setDisabled ] = React.useState(true);
     const [ valueEmail, setValueEmail ] = React.useState('');
     const [ valuePassword, setValuePassword ] = React.useState('');
@@ -40,25 +40,26 @@ function Form(props) {
                     }
                 });
         }else{
-            // workingWithUser
-            //     .getUserInfo({
-            //         email: valueEmail,
-            //         password: valuePassword
-            //     })
-            //     .then((res) => {
-            //     if(res){
-            //       setLoggedIn(true);
-            //     }else{
-            //       console.log('Ошибка, данных нет', res)
-            //     }
-            //     })
-            //     .catch((error) => console.log('Ошибка при первичной загрузке данных пользователя', error));
+            workingWithUser
+                .authorization({
+                    email: valueEmail,
+                    password: valuePassword
+                })
+                .then((res) => {
+                    console.log('res', res);
+                    if(res){
+                        setLoggedIn(true);
+                    }else{
+                    console.log('Ошибка, данных нет', res)
+                    }
+                })
+                .catch((error) => console.log('Ошибка при первичной загрузке данных пользователя', error));
         }
     }
     
     return (
         <div className="container-form">
-            <h2 className="container-form__title">{title}</h2>
+            <h2 className="container-form__title">{status === 'authorization' ? 'Войти' : 'Регистрация'}</h2>
             <form className="form" onSubmit={onSubmitForm}>
 
             {
@@ -86,7 +87,7 @@ function Form(props) {
                 className={`form__button ${disabled ? 'form__button_theme_disable' : 'form__button_theme_active'}`}
                 type="submit" 
                 disabled={`${!disabled ? '' : 'disabled'}`}
-            >{labelButton}</button>
+            >{status === 'authorization' ? 'Войти' : 'Зарегистрироваться'}</button>
                 
             </form>
         </div>

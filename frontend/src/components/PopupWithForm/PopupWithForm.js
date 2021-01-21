@@ -83,9 +83,6 @@ class PopupWithForm extends React.Component{
               <>
                 <div className="popup__container-with-link popup__container-with-link_theme_form">или <LinkForm setStatus={this.setStatus} status={status}/></div>
                   <Form
-                    title={'Вход'}
-                    labelButton={'Войти'}
-                    component={LinkForm}
                     setStatus={this.setStatus}
                     status={status}
                     setLoggedIn={setLoggedIn}
