@@ -9,11 +9,15 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
-// import {CurrentModalContext} from '../../utils/contexts/modal/CurrentModalContext';
+import workingWithToken from '../../utils/workingWithToken/WorkingWithToken';
 
 function App(props) {
   
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [currentUser, setCurrentUser] = React.useState({
+    loggedIn : false,
+    email: '',
+    name: ''
+  });
   const [showModal, setShowModal] = React.useState(false);
   const [hideMenu, setHideMenu] = React.useState(false);
 
@@ -22,40 +26,52 @@ function App(props) {
     setShowModal(false);
   }
 
+  const onSignOut = () => { 
+    window.location.replace("/"); // заменить
+    workingWithToken.deleteToken();
+  }
+
+  React.useEffect(() => {
+    const isThereToken = workingWithToken.tokenCheck();
+    if(isThereToken){
+      // setCurrentUser({
+      //   loggedIn : false,
+      //   email: '',
+      //   name: ''
+      // });
+      // getCurrentUser();
+    }else{
+      // workingWithToken.deleteToken();
+      // props.history.push('/sign-in');
+    }
+  }, []);
+
   return (
     <div className="root">
 
     <CurrentPageContext.Provider value={props.location.pathname === '/'}>
-      <CurrentUserContext.Provider value={loggedIn}>
-        {/* <CurrentModalContext.Provider value={loggedIn}> */}
-          <Header setShowModal={setShowModal} hideMenu={hideMenu} setHideMenu={setHideMenu}/>
+      <CurrentUserContext.Provider value={currentUser}>
+          <Header setShowModal={setShowModal} hideMenu={hideMenu} setHideMenu={setHideMenu} onSignOut={onSignOut}/>
 
           <Switch>
 
-            {/* <Route path='/saved-news'>
-              
-            </Route> */}
-
             <ProtectedRoute 
               path="/saved-news" 
-              loggedIn={loggedIn} 
+              loggedIn={currentUser.loggedIn} 
               component={SavedNewsHeader}
               mainThis={this}
             />
 
-            <ProtectedRoute 
-              path="/" 
-              loggedIn={loggedIn} 
-              component={Main}
-              mainThis={this}
-            />
 
+            <Route path='/' exec>
+              <Main loggedIn={currentUser.loggedIn} mainThis={this}/>
+            </Route>
+          
           </Switch>
 
           <Footer/>
 
-          <PopupWithForm showModal={showModal} closeModal={closeModal} component={<></>}/>
-        {/* </CurrentModalContext.Provider> */}
+          <PopupWithForm showModal={showModal} closeModal={closeModal} setCurrentUser={setCurrentUser}/>
       </CurrentUserContext.Provider>
     </CurrentPageContext.Provider>
     </div>

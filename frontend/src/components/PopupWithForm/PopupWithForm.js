@@ -64,7 +64,7 @@ class PopupWithForm extends React.Component{
 
   render() {
 
-    const { showModal, setLoggedIn } = this.props;
+    const { showModal, setCurrentUser } = this.props;
     const { status } = this.state;
 
     if(showModal){
@@ -85,7 +85,8 @@ class PopupWithForm extends React.Component{
                   <Form
                     setStatus={this.setStatus}
                     status={status}
-                    setLoggedIn={setLoggedIn}
+                    setCurrentUser={setCurrentUser}
+                    closeModal={this.props.closeModal}
                   />
                 </> : 
                 <>

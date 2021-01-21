@@ -2,11 +2,12 @@ import './Form.css';
 import React from 'react';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-import workingWithUser from '../../utils/workingWithUser/workingWithUser';
+import workingWithToken from '../../utils/workingWithToken/WorkingWithToken';
+import MainApi from '../../utils/api/MainApi';
 
 function Form(props) {
 
-    const { status, setLoggedIn, setStatus} = props;
+    const { status, setStatus, setCurrentUser, closeModal} = props;
     const [ disabled, setDisabled ] = React.useState(true);
     const [ valueEmail, setValueEmail ] = React.useState('');
     const [ valuePassword, setValuePassword ] = React.useState('');
@@ -16,44 +17,74 @@ function Form(props) {
         error: ''
     });
 
+    const getUser = () => {
+        MainApi
+            .getUser()
+            .then((user) => {
+                if(user){
+                    setCurrentUser({
+                        loggedIn : true,
+                        email: user.email,
+                        name: user.name
+                    });
+                    closeModal();
+                }else{
+                    setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'});
+                }
+            })
+            .catch((error) => setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'}));
+    }
+
+    const onRegister = () => { 
+        MainApi
+            .registration({
+                email: valueEmail,
+                password: valuePassword,
+                name: valueName
+            })
+            .then((res) => {
+                if(res.statusCode !== 400){
+                    setStatus(res.message);
+                }else{
+                    setErrorAll({status: true, error: res.validation.body.message});
+                }
+            })
+            .catch((error) => {
+                if(typeof error.validation !== 'object'){
+                    setErrorAll({status: true, error: error.message});
+                }else{
+                    setErrorAll({status: true, error: error.validation.body.message});
+                }
+            });
+    }
+
+    const onLogin  = () => { 
+        MainApi
+            .authorization({
+                email: valueEmail,
+                password: valuePassword
+            })
+            .then((res) => {
+                console.log('res', res);
+                if(res){
+                    if(workingWithToken.saveToken(res.token)){
+                        getUser();
+                    }else{
+                        setErrorAll({status: true, error: 'Ошибка token не сохранился.'});
+                    }
+                }else{
+                    setErrorAll({status: true, error: 'Ошибка'});
+                }
+            })
+            .catch((error) => setErrorAll({status: true, error: error.message}));
+    }
+
     const onSubmitForm = (e) => {
         e.preventDefault();
         if(valueEmail !== '' && valuePassword !== '' && valueName !== ''){
-            workingWithUser
-                .registerUser({
-                    email: valueEmail,
-                    password: valuePassword,
-                    name: valueName
-                })
-                .then((res) => {
-                    if(res.statusCode !== 400){
-                        setStatus(res.message);
-                    }else{
-                        setErrorAll({status: true, error: res.validation.body.message});
-                    }
-                })
-                .catch((error) => {
-                    if(typeof error.validation !== 'object'){
-                        setErrorAll({status: true, error: error.message});
-                    }else{
-                        setErrorAll({status: true, error: error.validation.body.message});
-                    }
-                });
+            onRegister();
         }else{
-            workingWithUser
-                .authorization({
-                    email: valueEmail,
-                    password: valuePassword
-                })
-                .then((res) => {
-                    console.log('res', res);
-                    if(res){
-                        setLoggedIn(true);
-                    }else{
-                    console.log('Ошибка, данных нет', res)
-                    }
-                })
-                .catch((error) => console.log('Ошибка при первичной загрузке данных пользователя', error));
+            onLogin();
         }
     }
     
