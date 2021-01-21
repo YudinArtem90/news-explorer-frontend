@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 const password = (passwordCardRefValue) => {
     let schema = yup.object({
-        password: yup.string().min(6).max(30).matches(/^[A-Za-z0-9]+$/g).required()
+        password: yup.string().min(8).max(30).matches(/^[A-Za-z0-9]+$/g).required()
       });
 
     return schema.validate({ 
