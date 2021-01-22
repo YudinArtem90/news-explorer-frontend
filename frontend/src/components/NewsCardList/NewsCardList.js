@@ -20,15 +20,16 @@ function NewsCardList(props) {
         let newsCards = [];
 
         for(let i = 0; i < numberСards; i++){
-            const { publishedAt, title, description, author, urlToImage } = news[i];
-            console.log('news[i]', news[i]);
+            const { publishedAt, title, description, source, urlToImage } = news[i];
+            
             newsCards[i] = <Card
                 date={publishedAt} 
                 title={title} 
                 article={description} 
-                sourceOfInformation={author}
+                sourceOfInformation={source.name}
                 category={categoryName}
                 img={urlToImage}
+                key={title + publishedAt}
             />;
         }
 

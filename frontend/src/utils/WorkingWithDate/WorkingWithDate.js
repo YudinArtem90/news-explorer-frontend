@@ -17,6 +17,17 @@ class WorkingWithDate{
         const dateNews = new Date(weekAgo);
         return this._getDate(dateNews);
     }
+
+    getDateForNews(date){
+        const dateNews = new Date(date);
+
+        const month = dateNews.toLocaleString('ru', {       
+            month: 'long'       
+          })
+
+        return `${dateNews.getDay()} ${month}, ${dateNews.getFullYear()}`;
+    ;
+    }
 }
 
 const workingWithDate = new WorkingWithDate();

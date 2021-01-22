@@ -1,6 +1,6 @@
 import './SavedNewsHeader.css';
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom'; 
+import { withRouter } from 'react-router-dom'; 
 import NewsCardList from '../NewsCardList/NewsCardList';
 
 function SavedNewsHeader(props) {
