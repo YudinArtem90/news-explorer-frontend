@@ -13,6 +13,7 @@ import workingWithToken from '../../utils/workingWithToken/WorkingWithToken';
 import workingWithNews from '../../utils/WorkingWithNews/WorkingWithNews';
 import newsApi from '../../utils/api/NewsApi';
 import status from '../../utils/statusSearch/status';
+import MainApi from '../../utils/api/MainApi';
 
 function App(props) {
   
@@ -21,14 +22,100 @@ function App(props) {
     email: '',
     name: ''
   });
+  
+  const [showModal, setShowModal] = React.useState(false);
+  const [hideMenu, setHideMenu] = React.useState(false);
+  
+  // для новостей
+  const [searchStatus, setSearchStatus] = React.useState(status.searchDisabled());
   const [newsData, setNewsData] = React.useState({
     categoryName: '', 
     news: [],
     numberNewsItems: 0
   });
-  const [showModal, setShowModal] = React.useState(false);
-  const [hideMenu, setHideMenu] = React.useState(false);
-  const [searchStatus, setSearchStatus] = React.useState(status.searchDisabled());
+
+  //для формы
+  const [ disabled, setDisabled ] = React.useState(true);
+  const [ valueEmail, setValueEmail ] = React.useState('');
+  const [ valuePassword, setValuePassword ] = React.useState('');
+  const [ valueName, setValueName ] = React.useState('');
+  const [ errorAll, setErrorAll ] = React.useState({
+      status: false,
+      error: ''
+  });
+  const [statusForm, setStatusForm] = React.useState('authorization');
+
+  const clearFormAll = (res) => { 
+    setValueEmail('');
+    setValuePassword('');
+    setValueName('');
+    setStatusForm(res.message);
+    setErrorAll({status: false, error: ''});
+    setDisabled(true);
+  }
+
+  const getUser = () => {
+    MainApi
+        .getUser()
+        .then((user) => {
+            if(user){
+                workingWithNews.deleteNews();
+                setCurrentUser({
+                    loggedIn : true,
+                    email: user.email,
+                    name: user.name
+                });
+                closeModal();
+            }else{
+                setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'});
+            }
+        })
+        .catch((error) => setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'}));
+  }
+
+  const onRegister = () => { 
+      MainApi
+          .registration({
+              email: valueEmail,
+              password: valuePassword,
+              name: valueName
+          })
+          .then((res) => {
+              if(res.statusCode !== 400){
+                clearFormAll(res);
+              }else{
+                  setErrorAll({status: true, error: res.validation.body.message});
+              }
+          })
+          .catch((error) => {
+              if(typeof error.validation !== 'object'){
+                  setErrorAll({status: true, error: error.message});
+              }else{
+                  setErrorAll({status: true, error: error.validation.body.message});
+              }
+          });
+  }
+
+  const onLogin  = () => { 
+      MainApi
+          .authorization({
+              email: valueEmail,
+              password: valuePassword
+          })
+          .then((res) => {
+              console.log('res', res);
+              if(res){
+                  if(workingWithToken.saveToken(res.token)){
+                      getUser();
+                  }else{
+                      setErrorAll({status: true, error: 'Ошибка token не сохранился.'});
+                  }
+              }else{
+                  setErrorAll({status: true, error: 'Ошибка'});
+              }
+          })
+          .catch((error) => setErrorAll({status: true, error: error.message}));
+  }
 
   const searchNews = (news) => {
       
@@ -101,7 +188,7 @@ function App(props) {
 
 
   React.useEffect(() => {
-    
+
     if (!currentUser.loggedIn) { return }
 
     setNewsData({
@@ -112,7 +199,7 @@ function App(props) {
   }, [currentUser.loggedIn]);
 
 
-  console.log('newsData App', newsData);
+  console.log('disabled App', disabled);
 
   return (
     <div className="root">
@@ -139,7 +226,22 @@ function App(props) {
 
           <Footer/>
 
-          <PopupWithForm showModal={showModal} closeModal={closeModal} setCurrentUser={setCurrentUser}/>
+          <PopupWithForm 
+            showModal={showModal} 
+            setDisabled={setDisabled} 
+            valueEmail={valueEmail} 
+            setValueEmail={setValueEmail}
+            valuePassword={valuePassword}
+            setValuePassword={setValuePassword}
+            valueName={valueName}
+            setValueName={setValueName}
+            errorAll={errorAll}
+            statusForm={statusForm}
+            setStatusForm={setStatusForm}
+            onRegister={onRegister}
+            onLogin={onLogin}
+            disabled={disabled}
+          />
       </CurrentUserContext.Provider>
     </CurrentPageContext.Provider>
     </div>
