@@ -169,19 +169,13 @@ function App(props) {
   React.useEffect(() => {
     const isThereToken = workingWithToken.tokenCheck();
     if(isThereToken){
-      // setCurrentUser({
-      //   loggedIn : false,
-      //   email: '',
-      //   name: ''
-      // });
-      // getCurrentUser();
+      getUser();
     }else{
-      // workingWithToken.deleteToken();
-      // props.history.push('/sign-in');
+      workingWithToken.deleteToken();
+      props.history.push('/');
     }
-    // debugger;
+    
     if(workingWithNews.checkNews()){
-      let h = workingWithNews.getNews();
       setNewsData(workingWithNews.getNews());
     }
   }, []);
@@ -228,6 +222,7 @@ function App(props) {
 
           <PopupWithForm 
             showModal={showModal} 
+            closeModal={closeModal}
             setDisabled={setDisabled} 
             valueEmail={valueEmail} 
             setValueEmail={setValueEmail}
