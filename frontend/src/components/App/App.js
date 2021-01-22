@@ -11,6 +11,8 @@ import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 import workingWithToken from '../../utils/workingWithToken/WorkingWithToken';
 import workingWithNews from '../../utils/WorkingWithNews/WorkingWithNews';
+import newsApi from '../../utils/api/NewsApi';
+import status from '../../utils/statusSearch/status';
 
 function App(props) {
   
@@ -19,8 +21,47 @@ function App(props) {
     email: '',
     name: ''
   });
+  const [newsData, setNewsData] = React.useState({
+    categoryName: '', 
+    news: [],
+    numberNewsItems: 0
+  });
   const [showModal, setShowModal] = React.useState(false);
   const [hideMenu, setHideMenu] = React.useState(false);
+  const [searchStatus, setSearchStatus] = React.useState(status.searchDisabled());
+
+  const searchNews = (news) => {
+      
+    setNewsData({
+      categoryName: '', 
+      news: [],
+      numberNewsItems: 0
+    });
+    setSearchStatus(status.searchIsActive());
+
+    newsApi
+      .getNews(news)
+      .then(request => { 
+        const newsArray = request.articles;
+        if(newsArray.length){
+
+          const data = {
+            categoryName: news, 
+            news: newsArray,
+            numberNewsItems: request.totalResults
+          };
+
+          setNewsData(data);
+          workingWithNews.saveNews(data);
+          setSearchStatus(status.searchDisabled());
+        }else{
+          setSearchStatus(status.searchNothingFound());
+        }
+      })
+      .catch(error => {
+        setSearchStatus(status.searchError());
+      });
+  }
 
   const closeModal = () => {
     setHideMenu(false);
@@ -51,7 +92,27 @@ function App(props) {
       // workingWithToken.deleteToken();
       // props.history.push('/sign-in');
     }
+    // debugger;
+    if(workingWithNews.checkNews()){
+      let h = workingWithNews.getNews();
+      setNewsData(workingWithNews.getNews());
+    }
   }, []);
+
+
+  React.useEffect(() => {
+    
+    if (!currentUser.loggedIn) { return }
+
+    setNewsData({
+      categoryName: '', 
+      news: [],
+      numberNewsItems: 0
+    });
+  }, [currentUser.loggedIn]);
+
+
+  console.log('newsData App', newsData);
 
   return (
     <div className="root">
@@ -71,7 +132,7 @@ function App(props) {
 
 
             <Route path='/' exec>
-              <Main mainThis={this}/>
+              <Main mainThis={this} newsData={newsData} searchStatus={searchStatus} searchNews={searchNews}/>
             </Route>
           
           </Switch>
