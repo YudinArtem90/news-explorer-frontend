@@ -12,6 +12,7 @@
     border-top-right-radius: 15px;
     position: sticky;
     background-size: contain;
+    cursor: pointer;
 }
 
 
@@ -72,6 +73,7 @@
     font-style: normal;
     font-weight: normal;
     color: #1A1B22;
+    cursor: pointer;
 }
 
 .new-card-container__article{
@@ -96,6 +98,7 @@
     letter-spacing: 0.4px;
     text-transform: uppercase;
     color: #B6BCBF;
+    cursor: pointer;
 }
 
 .new-card-container__inform-label{

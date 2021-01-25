@@ -3,6 +3,7 @@ import React from 'react';
 import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 import workingWithDate from '../../utils/WorkingWithDate/WorkingWithDate';
+import { Redirect } from 'react-router-dom';
 
 function Card(props) {
 
@@ -37,9 +38,18 @@ function Card(props) {
         }
     }
 
+    const goToTheSourceOfInformation = () => {
+        window.open(`${link}`, "_blank");
+    }
+
+    const goToNewsAgency = () => {
+        const url = new URL(link);
+        window.open(`${url.protocol}/${url.hostname}`, "_blank");
+    }
+
     return (
         <div className="new-card-container">
-            <div className="new-card-container__header" style={{ backgroundImage: `url(${img})` }}>
+            <div className="new-card-container__header" style={{ backgroundImage: `url(${img})` }} onClick={goToTheSourceOfInformation}>
                 {
                     !mainPage ? <label className="new-card-container__category">{keyword}</label> : null
                 }
@@ -61,9 +71,9 @@ function Card(props) {
             </div>
             <div className="new-card-container__main">
                 <label className="new-card-container__date">{workingWithDate.getDateForNews(date)}</label>
-                <h2 className="new-card-container__title">{title}</h2>
+                <h2 className="new-card-container__title" onClick={goToTheSourceOfInformation}>{title}</h2>
                 <p className="new-card-container__article">{article}</p>
-                <label className="new-card-container__source-of-information">{sourceOfInformation}</label>
+                <label className="new-card-container__source-of-information" onClick={goToNewsAgency}>{sourceOfInformation}</label>
             </div>
         </div>
     );
