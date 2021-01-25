@@ -52,13 +52,14 @@ function App(props) {
   const saveNews = (date, idCard) => { 
 
     date.keyword = newsData.categoryName;
-
+    // console.log('idCard', idCard);
+    // console.log('date', date);
     MainApi
       .saveNews(date)
       .then((res) => { 
-        // console.log('res', res);
-        // setListSavedNewsItems([...listSavedNewsItems, res]);
-        setCardsBookmarks([...cardsBookmarks, idCard]);
+        const arrayCardsBookmarks = [...cardsBookmarks, idCard];
+        setCardsBookmarks(arrayCardsBookmarks);
+        workingWithNews.addCardsBookmarks(arrayCardsBookmarks);
       })
       .catch();
   }
@@ -231,11 +232,13 @@ function App(props) {
 
   React.useEffect(() => {
     const isThereToken = workingWithToken.tokenCheck();
+    setCardsBookmarks(workingWithNews.getCardsBookmarks());
 
     if(isThereToken){
       getCurrentUser();
     }else{
       workingWithToken.deleteToken();
+      workingWithNews.deleteCardsBookmarks();
       props.history.push('/');
     }
     
@@ -255,7 +258,7 @@ function App(props) {
   }, [currentUser.loggedIn]);
 
 
-  console.log('newsData App', newsData);
+  console.log('cardsBookmarks App', cardsBookmarks);
 
   return (
     <div className="root">

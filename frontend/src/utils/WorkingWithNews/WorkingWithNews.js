@@ -27,6 +27,22 @@ class WorkingWithNews{
     deleteNews(){
         localStorage.removeItem('news');
     }
+
+    addCardsBookmarks(cardsBookmarks){
+        localStorage.setItem('cardsBookmarks', JSON.stringify(cardsBookmarks));
+    }
+    
+    deleteCardsBookmarks(){
+        localStorage.removeItem('cardsBookmarks');
+    }
+
+    getCardsBookmarks(){
+        if(localStorage.getItem('cardsBookmarks')){
+            return JSON.parse(localStorage.getItem('cardsBookmarks'));
+        }
+
+        return [];
+    }
 }
 
 const workingWithNews = new WorkingWithNews();

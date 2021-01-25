@@ -11,17 +11,14 @@ function Card(props) {
     const {date, title, article, sourceOfInformation, img, saveNews, link, cardsBookmarks, idCard, keyword = '', deleteCardBookmarks} = props;
     const [visibleLabel, setVisibleLabel] = React.useState(false);
     let classButtonCard = `new-card-container__button `;
-
-    // debugger;
+    
     console.log('props', props);
-    console.log('sourceOfInformation', sourceOfInformation);
-    // if(cardsBookmarks.length > 0) {
-        if(cardsBookmarks.includes(idCard)){
-            classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles_active' : 'new-card-container__button-delete-articles'}`;
-        }else{
-            classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles' : 'new-card-container__button-delete-articles'}`;
-        }
-    // }
+
+    if(cardsBookmarks.includes(idCard)){
+        classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles_active' : 'new-card-container__button-delete-articles'}`;
+    }else{
+        classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles' : 'new-card-container__button-delete-articles'}`;
+    }
 
     const addCardBookmarks = () => {
         saveNews({

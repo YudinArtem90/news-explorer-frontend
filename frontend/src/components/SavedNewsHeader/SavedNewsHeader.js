@@ -6,7 +6,6 @@ import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 
 function SavedNewsHeader(props) {
 
-  console.log('SavedNewsHeader props', props);
   const { listSavedNewsItems, cardsBookmarks, deleteCardBookmarks } = props;
   const currentUser = React.useContext(CurrentUserContext);
   let keywordObject = {};

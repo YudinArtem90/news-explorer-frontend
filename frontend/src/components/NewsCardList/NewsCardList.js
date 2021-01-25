@@ -31,7 +31,7 @@ function NewsCardList(props) {
         for(let i = 0; i < numberСards; i++){
             const { publishedAt, title, description, source, urlToImage, url, keyword, key } = news[i];
 
-            const keyCard = typeof key !== undefined ? key : btoa(url);
+            const keyCard = key ? key : btoa(url);
 
             newsCards[i] = <Card
                 date={publishedAt} 
