@@ -3,7 +3,6 @@ import React from 'react';
 import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 import workingWithDate from '../../utils/WorkingWithDate/WorkingWithDate';
-import { Redirect } from 'react-router-dom';
 
 function Card(props) {
 
@@ -13,12 +12,12 @@ function Card(props) {
     const [visibleLabel, setVisibleLabel] = React.useState(false);
     let classButtonCard = `new-card-container__button `;
 
-    // console.log('props', props);
-
     if(cardsBookmarks.includes(idCard)){
         classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles_active' : 'new-card-container__button-delete-articles'}`;
     }else{
-        classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles' : 'new-card-container__button-delete-articles'}`;
+        classButtonCard = classButtonCard + `new-card-container__button-save-articles ${
+            mainPage && currentUser.loggedIn ? 'new-card-container__button-save-articles_theme_active-main' : 'new-card-container__button-save-articles_theme_disable-main'
+        } ${mainPage ? '' : 'new-card-container__button-delete-articles'}`;
     }
 
     const addCardBookmarks = () => {
@@ -32,14 +31,16 @@ function Card(props) {
         }, idCard);
     }
 
-    const onButtonClickCard = () => { 
+    const onButtonClickCard = () => {
         if(currentUser.loggedIn){
             mainPage ? addCardBookmarks() : deleteCardBookmarks(idCard);
         }
     }
 
-    const goToTheSourceOfInformation = () => {
-        window.open(`${link}`, "_blank");
+    const goToTheSourceOfInformation = (e) => {
+        if(e.target.localName !== 'button'){
+            window.open(`${link}`, "_blank");
+        }
     }
 
     const goToNewsAgency = () => {

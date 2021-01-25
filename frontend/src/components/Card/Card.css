@@ -10,7 +10,9 @@
     background-repeat: no-repeat;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    position: sticky;
+    /* position: sticky; */
+    position: relative;
+    z-index: 1;
     background-size: contain;
     cursor: pointer;
 }
@@ -27,14 +29,22 @@
     border: 1px solid #B6BCBF;
     cursor: pointer;
     outline: none;
+    z-index: 3;
 }
 
 .new-card-container__button-save-articles{
-    background-image: url(../../images/rectangle-white.svg);
     background-size: 14px;
 }
 
 .new-card-container__button-save-articles:hover{
+    background-image: url(../../images/rectangle_black.svg);
+}
+
+.new-card-container__button-save-articles_theme_disable-main{
+    background-image: url(../../images/rectangle-white.svg);
+}
+
+.new-card-container__button-save-articles_theme_active-main{
     background-image: url(../../images/rectangle_black.svg);
 }
 
