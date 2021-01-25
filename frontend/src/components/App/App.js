@@ -271,6 +271,7 @@ function App(props) {
               mainThis={this}
               cardsBookmarks={cardsBookmarks}
               deleteCardBookmarks={deleteCardBookmarks}
+              setShowModal={setShowModal}
             />
 
 
