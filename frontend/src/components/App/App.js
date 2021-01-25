@@ -15,6 +15,7 @@ import newsApi from '../../utils/api/NewsApi';
 import status from '../../utils/statusSearch/status';
 import MainApi from '../../utils/api/MainApi';
 
+
 function App(props) {
   
   const [currentUser, setCurrentUser] = React.useState({
@@ -69,13 +70,13 @@ function App(props) {
     MainApi
       .deleteNews(idCard)
       .then((res) => { 
-        console.log('res', res);
+        // console.log('res', res);
       })
       .catch();
   }
 
   const getSaveNews = () => { 
-    debugger;
+    // debugger;
     MainApi
       .getSaveNews()
       .then((res) => { 
@@ -100,6 +101,13 @@ function App(props) {
         .then((user) => {
             if(user){
                 workingWithNews.deleteNews();
+
+                setNewsData({
+                  categoryName: '', 
+                  news: [],
+                  numberNewsItems: 0
+                });
+
                 setCurrentUser({
                     loggedIn : true,
                     email: user.email,
@@ -244,21 +252,6 @@ function App(props) {
     
     getNewsLocalStorage();
   }, []);
-
-
-  React.useEffect(() => {
-
-    // if (!currentUser.loggedIn) { return }
-
-    // setNewsData({
-    //   categoryName: '', 
-    //   news: [],
-    //   numberNewsItems: 0
-    // });
-  }, [currentUser.loggedIn]);
-
-
-  console.log('cardsBookmarks App', cardsBookmarks);
 
   return (
     <div className="root">
