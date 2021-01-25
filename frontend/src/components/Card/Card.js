@@ -8,12 +8,13 @@ function Card(props) {
 
     const mainPage = React.useContext(CurrentPageContext);
     const currentUser = React.useContext(CurrentUserContext);
-    const {date, title, article, sourceOfInformation, category = '', img, saveNews, link, cardsBookmarks, idCard, keyword = '', deleteCardBookmarks} = props;
+    const {date, title, article, sourceOfInformation, img, saveNews, link, cardsBookmarks, idCard, keyword = '', deleteCardBookmarks} = props;
     const [visibleLabel, setVisibleLabel] = React.useState(false);
     let classButtonCard = `new-card-container__button `;
 
     // debugger;
     console.log('props', props);
+    console.log('sourceOfInformation', sourceOfInformation);
     // if(cardsBookmarks.length > 0) {
         if(cardsBookmarks.includes(idCard)){
             classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles_active' : 'new-card-container__button-delete-articles'}`;
@@ -34,7 +35,6 @@ function Card(props) {
     }
 
     const onButtonClickCard = () => { 
-        console.log('mainPage', mainPage);
         mainPage ? addCardBookmarks() : deleteCardBookmarks(idCard);
     }
 
@@ -64,7 +64,7 @@ function Card(props) {
                 <label className="new-card-container__date">{workingWithDate.getDateForNews(date)}</label>
                 <h2 className="new-card-container__title">{title}</h2>
                 <p className="new-card-container__article">{article}</p>
-                <label className="new-card-container__source-of-information">{sourceOfInformation !== null ? sourceOfInformation : '-'}</label>
+                <label className="new-card-container__source-of-information">{sourceOfInformation}</label>
             </div>
         </div>
     );

@@ -37,7 +37,7 @@ function NewsCardList(props) {
                 date={publishedAt} 
                 title={title} 
                 article={description} 
-                sourceOfInformation={source.name}
+                sourceOfInformation={typeof source === 'string' ? source : source.name}
                 category={categoryName}
                 img={urlToImage}
                 key={keyCard}
