@@ -2,7 +2,7 @@ import Api from './Api';
 class MainApi extends Api{
     
     constructor({baseUrl}){
-        console.log(' MainApi baseUrl', baseUrl);
+        // console.log(' MainApi baseUrl', baseUrl);
         super(baseUrl);
         // console.log('super._baseUrl', super._baseUrl);
         this._baseUrl = baseUrl; 
@@ -33,6 +33,32 @@ class MainApi extends Api{
         });
         
         return fetch(`${this._baseUrl}/signup`, this._data)
+                .then(res => { return super._getResult(res) });
+    }
+
+    saveNews(data){
+
+        super._getData({
+            method: 'POST',
+            body: data
+        });
+
+        return fetch(`${this._baseUrl}/articles`, this._data)
+                .then(res => { return super._getResult(res) });
+    }
+
+    getSaveNews(){
+        super._getData({});
+
+        return fetch(`${this._baseUrl}/articles`, this._data)
+                .then(res => { return super._getResult(res) });
+    }
+
+
+    deleteNews(idCard){
+        super._getData({ method: 'DELETE' });
+
+        return fetch(`${this._baseUrl}/articles/${idCard}`, this._data)
                 .then(res => { return super._getResult(res) });
     }
 }

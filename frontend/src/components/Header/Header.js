@@ -22,6 +22,9 @@ function Header(props) {
       openModal();
     }
 
+    // console.log('Header currentUser.loggedIn', currentUser.loggedIn);
+    // console.log('Header mainPage', mainPage);
+
     return (
       <div className={`header ${openMenu ? 'header_theme_black' : ''} ${savedNews ? 'header_saved-news_page' : 'header_main_page'} ${hideMenu && 'header_hideMenu'}`}>
         <div className="header__left-container">

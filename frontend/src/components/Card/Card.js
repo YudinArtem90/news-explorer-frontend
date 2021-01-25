@@ -4,35 +4,49 @@ import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 import workingWithDate from '../../utils/WorkingWithDate/WorkingWithDate';
 
-function Card({date, title, article, sourceOfInformation, category = '', img}) {
+function Card(props) {
 
     const mainPage = React.useContext(CurrentPageContext);
     const currentUser = React.useContext(CurrentUserContext);
-
+    const {date, title, article, sourceOfInformation, category = '', img, saveNews, link, cardsBookmarks, idCard, keyword = '', deleteCardBookmarks} = props;
     const [visibleLabel, setVisibleLabel] = React.useState(false);
-    const [cardBookmarks, setCardBookmarks] = React.useState(false);
     let classButtonCard = `new-card-container__button `;
 
-    if(cardBookmarks){
-        classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles_active' : 'new-card-container__button-delete-articles'}`;
-    }else{
-        classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles' : 'new-card-container__button-delete-articles'}`;
-    }
+    // debugger;
+    console.log('props', props);
+    // if(cardsBookmarks.length > 0) {
+        if(cardsBookmarks.includes(idCard)){
+            classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles_active' : 'new-card-container__button-delete-articles'}`;
+        }else{
+            classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles' : 'new-card-container__button-delete-articles'}`;
+        }
+    // }
 
     const addCardBookmarks = () => {
-        setCardBookmarks(!cardBookmarks);
+        saveNews({
+            title: title,
+            date: date,
+            source: sourceOfInformation,
+            text: article,
+            link: link,
+            image: img
+        }, idCard);
+    }
+
+    const onButtonClickCard = () => { 
+        console.log('mainPage', mainPage);
+        mainPage ? addCardBookmarks() : deleteCardBookmarks(idCard);
     }
 
     return (
         <div className="new-card-container">
             <div className="new-card-container__header" style={{ backgroundImage: `url(${img})` }}>
                 {
-                    !mainPage ? <label className="new-card-container__category">{category}</label> : null
+                    !mainPage ? <label className="new-card-container__category">{keyword}</label> : null
                 }
 
-                {/* && (!currentUser.loggedIn && mainPage) ?  */}
                 {
-                    visibleLabel && mainPage ? 
+                    visibleLabel && (!currentUser.loggedIn && mainPage) ? 
                     <label className="new-card-container__inform-label">Войдите, чтобы сохранять статьи</label> : null
                 }
                 
@@ -43,7 +57,7 @@ function Card({date, title, article, sourceOfInformation, category = '', img}) {
                     onMouseOver={() => setVisibleLabel(true)}
                     onMouseOut={() => setVisibleLabel(false)}
                     className={classButtonCard}
-                    onClick={addCardBookmarks}
+                    onClick={onButtonClickCard}
                 ></button>
             </div>
             <div className="new-card-container__main">

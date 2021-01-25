@@ -1,12 +1,10 @@
 import workingWithToken from '../../utils/workingWithToken/WorkingWithToken'
 class Api{
     constructor(baseUrl){
-        console.log('Api baseUrl', baseUrl);
+        // console.log('Api baseUrl', baseUrl);
         this._baseUrl = baseUrl; 
         this._data = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: {}
         };
     }
 
@@ -20,14 +18,21 @@ class Api{
     
     _getData({method = "GET", body}){
         this._resetParameters();
+        // debugger;
 
+        // this._data.headers = {
+        //     'Content-Type': 'application/json'
+        // };
+        
+        this._data.headers['Content-Type'] = 'application/json';
+        
         if(workingWithToken.tokenCheck()){
-            this._data.headers = {
-                authorization: workingWithToken.getToken()
-            };
+            this._data.headers['authorization'] = workingWithToken.getToken();
+            // this._data.headers = {
+            //     authorization: workingWithToken.getToken()
+            // };
         }
         
-        // debugger;
         this._data.method = method;
         if(body){
             this._data.body = JSON.stringify(body);

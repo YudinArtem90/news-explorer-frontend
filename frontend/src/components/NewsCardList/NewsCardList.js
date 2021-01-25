@@ -1,15 +1,24 @@
 import './NewsCardList.css';
 import React from 'react';
 import Card from '../Card/Card';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 
 function NewsCardList(props) {
 
     // const mainPage = props.location.pathname === '/';
     const mainPage = React.useContext(CurrentPageContext);
-    const { news, categoryName, numberNewsItems } = props;
-    const [numberСards, setNumberСards] = React.useState(numberNewsItems > 3 ? 3 : numberNewsItems);
+    const { newsData } = props;
+    const { news, categoryName, numberNewsItems} = newsData;
+
+    console.log('NewsCardList props', props);
+
+    const [numberСards, setNumberСards] = React.useState(
+        mainPage 
+            ? numberNewsItems > 3 ? 3 : numberNewsItems 
+        : 
+            news.length
+    );
 
     const showMore = () => {
         setNumberСards(numberСards + 3);
@@ -20,8 +29,10 @@ function NewsCardList(props) {
         let newsCards = [];
 
         for(let i = 0; i < numberСards; i++){
-            const { publishedAt, title, description, source, urlToImage } = news[i];
-            
+            const { publishedAt, title, description, source, urlToImage, url, keyword, key } = news[i];
+
+            const keyCard = typeof key !== undefined ? key : btoa(url);
+
             newsCards[i] = <Card
                 date={publishedAt} 
                 title={title} 
@@ -29,10 +40,14 @@ function NewsCardList(props) {
                 sourceOfInformation={source.name}
                 category={categoryName}
                 img={urlToImage}
-                key={title + publishedAt}
+                key={keyCard}
+                link={url}
+                idCard={keyCard}
+                keyword={keyword}
+                {...props}
             />;
         }
-
+        console.log('newsCards', newsCards);
         return newsCards;
     }
 

@@ -26,6 +26,10 @@ function App(props) {
   const [showModal, setShowModal] = React.useState(false);
   const [hideMenu, setHideMenu] = React.useState(false);
   
+  // для сохраненых новостей
+  const [listSavedNewsItems, setListSavedNewsItems] = React.useState([]);
+  const [cardsBookmarks, setCardsBookmarks] = React.useState([]);
+
   // для новостей
   const [searchStatus, setSearchStatus] = React.useState(status.searchDisabled());
   const [newsData, setNewsData] = React.useState({
@@ -45,6 +49,41 @@ function App(props) {
   });
   const [statusForm, setStatusForm] = React.useState('authorization');
 
+  const saveNews = (date, idCard) => { 
+
+    date.keyword = newsData.categoryName;
+
+    MainApi
+      .saveNews(date)
+      .then((res) => { 
+        // console.log('res', res);
+        // setListSavedNewsItems([...listSavedNewsItems, res]);
+        setCardsBookmarks([...cardsBookmarks, idCard]);
+      })
+      .catch();
+  }
+
+  const deleteCardBookmarks = (idCard) => { 
+
+    MainApi
+      .deleteNews(idCard)
+      .then((res) => { 
+        console.log('res', res);
+      })
+      .catch();
+  }
+
+  const getSaveNews = () => { 
+    debugger;
+    MainApi
+      .getSaveNews()
+      .then((res) => { 
+        console.log('res', res);
+        setListSavedNewsItems(res);
+      })
+      .catch();
+  }
+
   const clearFormAll = (res) => { 
     setValueEmail('');
     setValuePassword('');
@@ -60,6 +99,24 @@ function App(props) {
         .then((user) => {
             if(user){
                 workingWithNews.deleteNews();
+                setCurrentUser({
+                    loggedIn : true,
+                    email: user.email,
+                    name: user.name
+                });
+                closeModal();
+            }else{
+                setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'});
+            }
+        })
+        .catch((error) => setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'}));
+  }
+
+  const getCurrentUser = () => {
+    MainApi
+        .getUser()
+        .then((user) => {
+            if(user){
                 setCurrentUser({
                     loggedIn : true,
                     email: user.email,
@@ -103,7 +160,7 @@ function App(props) {
               password: valuePassword
           })
           .then((res) => {
-              console.log('res', res);
+              // console.log('res', res);
               if(res){
                   if(workingWithToken.saveToken(res.token)){
                       getUser();
@@ -155,6 +212,12 @@ function App(props) {
     setShowModal(false);
   }
 
+  const getNewsLocalStorage = () => {
+    if(workingWithNews.checkNews()){
+      setNewsData(workingWithNews.getNews());
+    }
+  }
+
   const onSignOut = () => { 
     window.location.replace("/"); // заменить
     workingWithToken.deleteToken();
@@ -168,32 +231,31 @@ function App(props) {
 
   React.useEffect(() => {
     const isThereToken = workingWithToken.tokenCheck();
+
     if(isThereToken){
-      getUser();
+      getCurrentUser();
     }else{
       workingWithToken.deleteToken();
       props.history.push('/');
     }
     
-    if(workingWithNews.checkNews()){
-      setNewsData(workingWithNews.getNews());
-    }
+    getNewsLocalStorage();
   }, []);
 
 
   React.useEffect(() => {
 
-    if (!currentUser.loggedIn) { return }
+    // if (!currentUser.loggedIn) { return }
 
-    setNewsData({
-      categoryName: '', 
-      news: [],
-      numberNewsItems: 0
-    });
+    // setNewsData({
+    //   categoryName: '', 
+    //   news: [],
+    //   numberNewsItems: 0
+    // });
   }, [currentUser.loggedIn]);
 
 
-  console.log('disabled App', disabled);
+  console.log('newsData App', newsData);
 
   return (
     <div className="root">
@@ -208,12 +270,16 @@ function App(props) {
               path="/saved-news" 
               loggedIn={currentUser.loggedIn} 
               component={SavedNewsHeader}
+              getSaveNews={getSaveNews}
+              listSavedNewsItems={listSavedNewsItems}
               mainThis={this}
+              cardsBookmarks={cardsBookmarks}
+              deleteCardBookmarks={deleteCardBookmarks}
             />
 
 
             <Route path='/' exec>
-              <Main mainThis={this} newsData={newsData} searchStatus={searchStatus} searchNews={searchNews}/>
+              <Main mainThis={this} newsData={newsData} searchStatus={searchStatus} searchNews={searchNews} saveNews={saveNews} cardsBookmarks={cardsBookmarks}/>
             </Route>
           
           </Switch>
