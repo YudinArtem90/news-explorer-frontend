@@ -11,8 +11,8 @@ function Card(props) {
     const {date, title, article, sourceOfInformation, img, saveNews, link, cardsBookmarks, idCard, keyword = '', deleteCardBookmarks} = props;
     const [visibleLabel, setVisibleLabel] = React.useState(false);
     let classButtonCard = `new-card-container__button `;
-    
-    console.log('props', props);
+
+    // console.log('props', props);
 
     if(cardsBookmarks.includes(idCard)){
         classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles_active' : 'new-card-container__button-delete-articles'}`;
@@ -32,7 +32,9 @@ function Card(props) {
     }
 
     const onButtonClickCard = () => { 
-        mainPage ? addCardBookmarks() : deleteCardBookmarks(idCard);
+        if(currentUser.loggedIn){
+            mainPage ? addCardBookmarks() : deleteCardBookmarks(idCard);
+        }
     }
 
     return (
