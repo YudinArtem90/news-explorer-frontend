@@ -65,17 +65,13 @@ function App(props) {
   }
 
   // удалить карточку новостей из сохраненных
-  const deleteNewsCardFromTheSavedOnes = ({id}) => {
+  const deleteNewsCardFromTheSavedOnes = ( id ) => {
     MainApi
       .deleteNews(id)
       .then((res) => { 
         if(res){
-          // if(index){
-          //   const newArray = array.splice(index, 1);
-          //   setCardsBookmarks(newArray);
-          //   workingWithNews.addCardsBookmarks(newArray);
+            deleteBookmarks(id);
             getSaveNews();
-          // }
         }
       })
       .catch((error) => console.log(error));
@@ -88,17 +84,22 @@ function App(props) {
       .deleteNews(id)
       .then((res) => { 
         if(res){
-          let array = [...cardsBookmarks];
-          cardsBookmarks.find((card, index) => { 
-            if(card.id === id){
-              array.splice(index, 1);
-            }
-          });
-          setCardsBookmarks(array);
-          workingWithNews.addCardsBookmarks(array);
+          deleteBookmarks(id);
         }
       })
       .catch((error) => console.log(error));
+  }
+
+  // убирает из Bookmarks удаленные новости
+  const deleteBookmarks = (id) => {
+    let array = [...cardsBookmarks];
+    cardsBookmarks.find((card, index) => { 
+      if(card.id === id){
+        array.splice(index, 1);
+      }
+    });
+    setCardsBookmarks(array);
+    workingWithNews.addCardsBookmarks(array);
   }
 
   const getSaveNews = () => { 
@@ -299,7 +300,8 @@ function App(props) {
               listSavedNewsItems={listSavedNewsItems}
               mainThis={this}
               cardsBookmarks={cardsBookmarks}
-              deleteCardBookmarks={deleteCardBookmarks}
+              // deleteCardBookmarks={deleteCardBookmarks}
+              deleteNewsCardFromTheSavedOnes={deleteNewsCardFromTheSavedOnes}
               setShowModal={setShowModal}
             />
 

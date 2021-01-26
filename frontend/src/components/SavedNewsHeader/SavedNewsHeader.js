@@ -6,7 +6,7 @@ import {CurrentUserContext} from '../../utils/contexts/user/CurrentUserContext';
 
 function SavedNewsHeader(props) {
 
-  const { listSavedNewsItems, cardsBookmarks, deleteCardBookmarks } = props;
+  const { listSavedNewsItems, cardsBookmarks, deleteNewsCardFromTheSavedOnes } = props;
   const currentUser = React.useContext(CurrentUserContext);
   let keywordObject = {};
 
@@ -72,7 +72,7 @@ function SavedNewsHeader(props) {
       </div>
         {
           listSavedNewsItems.length ? 
-            <NewsCardList newsData={newsData} cardsBookmarks={cardsBookmarks} deleteCardBookmarks={deleteCardBookmarks}/> : null
+            <NewsCardList newsData={newsData} cardsBookmarks={cardsBookmarks} deleteNewsCardFromTheSavedOnes={deleteNewsCardFromTheSavedOnes}/> : null
         }
     </>
   );

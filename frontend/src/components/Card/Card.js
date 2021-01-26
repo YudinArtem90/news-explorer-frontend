@@ -8,7 +8,7 @@ function Card(props) {
 
     const mainPage = React.useContext(CurrentPageContext);
     const currentUser = React.useContext(CurrentUserContext);
-    const {date, title, article, sourceOfInformation, img, saveNews, link, cardsBookmarks, idCard, keyword = '', deleteCardBookmarks} = props;
+    const {date, title, article, sourceOfInformation, img, saveNews, link, cardsBookmarks, idCard, keyword = '', deleteCardBookmarks, deleteNewsCardFromTheSavedOnes} = props;
     const [visibleLabel, setVisibleLabel] = React.useState(false);
     let classButtonCard = `new-card-container__button `;
 
@@ -40,12 +40,16 @@ function Card(props) {
             if(mainPage){
                 const cardBookmarksData = findCards(cardsBookmarks, link);
                 if(cardBookmarksData){
+                    // удалить метку с главной страницы
                     deleteCardBookmarks(cardBookmarksData)
                 }else{
+                    // добавить метку (сохранить статью) на главной странице
                     addCardBookmarks();
                 }
             }else{
-                deleteCardBookmarks(idCard, link);
+                // удалить карточку новостей из сохраненных
+                deleteNewsCardFromTheSavedOnes(idCard);
+                // deleteCardBookmarks(idCard, link);
             }
         }
     }
