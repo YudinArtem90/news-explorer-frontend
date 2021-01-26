@@ -50,40 +50,67 @@ function App(props) {
   });
   const [statusForm, setStatusForm] = React.useState('authorization');
 
-  const saveNews = (date, idCard) => { 
+  const saveNews = (date) => { 
 
     date.keyword = newsData.categoryName;
-    // console.log('idCard', idCard);
-    // console.log('date', date);
+
     MainApi
       .saveNews(date)
       .then((res) => { 
-        const arrayCardsBookmarks = [...cardsBookmarks, idCard];
+        const arrayCardsBookmarks = [...cardsBookmarks, {id: res._id, link: res.link}];
         setCardsBookmarks(arrayCardsBookmarks);
         workingWithNews.addCardsBookmarks(arrayCardsBookmarks);
       })
       .catch();
   }
 
-  const deleteCardBookmarks = (idCard) => { 
+  // удалить карточку новостей из сохраненных
+  const deleteNewsCardFromTheSavedOnes = ({id}) => {
+    MainApi
+      .deleteNews(id)
+      .then((res) => { 
+        if(res){
+          // if(index){
+          //   const newArray = array.splice(index, 1);
+          //   setCardsBookmarks(newArray);
+          //   workingWithNews.addCardsBookmarks(newArray);
+            getSaveNews();
+          // }
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+
+  // удалить метку о том, что карточка сохранена с главной страницы
+  const deleteCardBookmarks = ({ id, link }) => { 
 
     MainApi
-      .deleteNews(idCard)
+      .deleteNews(id)
       .then((res) => { 
-        // console.log('res', res);
+        if(res){
+          let array = [...cardsBookmarks];
+          cardsBookmarks.find((card, index) => { 
+            if(card.id === id){
+              array.splice(index, 1);
+            }
+          });
+          setCardsBookmarks(array);
+          workingWithNews.addCardsBookmarks(array);
+        }
       })
-      .catch();
+      .catch((error) => console.log(error));
   }
 
   const getSaveNews = () => { 
-    // debugger;
+    setListSavedNewsItems([]);
     MainApi
       .getSaveNews()
       .then((res) => { 
-        console.log('res', res);
-        setListSavedNewsItems(res);
+        if(res){
+          setListSavedNewsItems(res);
+        }
       })
-      .catch();
+      .catch((error) => console.log(error));
   }
 
   const clearFormAll = (res) => { 
@@ -253,6 +280,8 @@ function App(props) {
     getNewsLocalStorage();
   }, []);
 
+  console.log('cardsBookmarks', cardsBookmarks);
+
   return (
     <div className="root">
 
@@ -276,7 +305,7 @@ function App(props) {
 
 
             <Route path='/' exec>
-              <Main mainThis={this} newsData={newsData} searchStatus={searchStatus} searchNews={searchNews} saveNews={saveNews} cardsBookmarks={cardsBookmarks}/>
+              <Main mainThis={this} newsData={newsData} searchStatus={searchStatus} searchNews={searchNews} saveNews={saveNews} cardsBookmarks={cardsBookmarks} deleteCardBookmarks={deleteCardBookmarks}/>
             </Route>
           
           </Switch>

@@ -12,7 +12,11 @@ function Card(props) {
     const [visibleLabel, setVisibleLabel] = React.useState(false);
     let classButtonCard = `new-card-container__button `;
 
-    if(cardsBookmarks.includes(idCard)){
+    const findCards = (cardsBookmarks, link) => { 
+        return cardsBookmarks.find(card => card.link === link);
+    }
+
+    if(findCards(cardsBookmarks, link)){
         classButtonCard = classButtonCard + `${mainPage ? 'new-card-container__button-save-articles_active' : 'new-card-container__button-delete-articles'}`;
     }else{
         classButtonCard = classButtonCard + `new-card-container__button-save-articles ${
@@ -33,7 +37,16 @@ function Card(props) {
 
     const onButtonClickCard = () => {
         if(currentUser.loggedIn){
-            mainPage ? addCardBookmarks() : deleteCardBookmarks(idCard);
+            if(mainPage){
+                const cardBookmarksData = findCards(cardsBookmarks, link);
+                if(cardBookmarksData){
+                    deleteCardBookmarks(cardBookmarksData)
+                }else{
+                    addCardBookmarks();
+                }
+            }else{
+                deleteCardBookmarks(idCard, link);
+            }
         }
     }
 

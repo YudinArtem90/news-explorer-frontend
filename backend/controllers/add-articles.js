@@ -9,6 +9,6 @@ module.exports.addArticles = (req, res, next) => {
 
   Article
     .create(req.body)
-    .then(() => getData(res, { message: 'Статья создана' }))
+    .then((result) => getData(res, result))
     .catch((err) => next(checkErrors(err, next)));
 };
