@@ -45,8 +45,8 @@ function SavedNewsHeader(props) {
   }
 
   const newsData = convertNewsData();
-  const keyword = Object.keys(keywordObject);
-
+  const keyword = Object.keys(keywordObject).sort(function(a,b){return keywordObject[b]-keywordObject[a]});
+  
   return (
     <>
       <div className='saved-news-header'>
