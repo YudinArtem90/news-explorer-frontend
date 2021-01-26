@@ -51,6 +51,8 @@ function Card(props) {
                 deleteNewsCardFromTheSavedOnes(idCard);
                 // deleteCardBookmarks(idCard, link);
             }
+        }else{
+            setVisibleLabel(true);
         }
     }
 
@@ -81,7 +83,6 @@ function Card(props) {
                     visibleLabel && (currentUser.loggedIn && !mainPage) ? <label className="new-card-container__inform-label">Убрать из сохранённых</label> : null
                 }
                 <button 
-                    onMouseOver={() => setVisibleLabel(true)}
                     onMouseOut={() => setVisibleLabel(false)}
                     className={classButtonCard}
                     onClick={onButtonClickCard}
