@@ -28,9 +28,6 @@
 }
 
 @media (max-width: 480px){
-    /* .search-container{
-        height: 536px;
-    } */
 
     .search-container__header-text{ 
         font-size: 36px;

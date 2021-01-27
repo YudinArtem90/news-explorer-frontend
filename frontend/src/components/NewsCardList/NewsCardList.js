@@ -6,12 +6,9 @@ import {CurrentPageContext} from '../../utils/contexts/page/CurrentPageContext';
 
 function NewsCardList(props) {
 
-    // const mainPage = props.location.pathname === '/';
     const mainPage = React.useContext(CurrentPageContext);
     const { newsData } = props;
     const { news, categoryName, numberNewsItems} = newsData;
-
-    // console.log('NewsCardList props', props);
 
     const [numberСards, setNumberСards] = React.useState(
         mainPage 
@@ -47,7 +44,7 @@ function NewsCardList(props) {
                 {...props}
             />;
         }
-        // console.log('newsCards', newsCards);
+        
         return newsCards;
     }
 

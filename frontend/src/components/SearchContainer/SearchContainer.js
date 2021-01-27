@@ -3,8 +3,6 @@ import SearchForm from '../SearchForm/SearchForm';
 
 function SearchContainer(props) {
 
-    // const { searchNews } = props;
-
     return (
         <div className="search-container">
             <div className="search-container__info-text">
