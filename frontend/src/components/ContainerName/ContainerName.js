@@ -1,4 +1,3 @@
-// ContainerName
 import React from 'react';
 import { name } from '../../utils/validation/validation';
 

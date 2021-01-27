@@ -49,7 +49,6 @@ function Card(props) {
             }else{
                 // удалить карточку новостей из сохраненных
                 deleteNewsCardFromTheSavedOnes(idCard);
-                // deleteCardBookmarks(idCard, link);
             }
         }else{
             setVisibleLabel(true);
