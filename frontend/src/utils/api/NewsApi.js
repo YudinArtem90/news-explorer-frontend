@@ -21,7 +21,7 @@ class NewsApi extends Api{
 }
 
 const newsApi = new NewsApi({
-    baseUrl: 'http://newsapi.org/v2/everything?q=',
+    baseUrl:  process.env.REACT_APP_API_URL ? 'https://nomoreparties.co/news/v2/everything?q=' : 'http://newsapi.org/v2/everything?q=',
     apiKey: '0735f04eb4004a0e869f5c8b029adac7'
 });
 export default newsApi;
