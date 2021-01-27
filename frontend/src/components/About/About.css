@@ -1,5 +1,6 @@
 .about{
     display: grid;
+    grid-template-rows: auto;
 }
 
 .about__avatar{
@@ -9,6 +10,7 @@
     margin: auto;
     display: block;
     width: 100%;
+    border-radius: 50%;
 }
 
 .about__container-avatar{
@@ -66,7 +68,6 @@
 @media (min-width: 481px) and (max-width: 768px){
 
     .about{
-        grid-template-rows: 354px;
         grid-template-columns: 305px 1fr;
     }
 
@@ -92,7 +93,6 @@
 
 @media (min-width: 769px){
     .about{
-        grid-template-rows: 624px;
         grid-template-columns: 568px 1fr;
     }
 
