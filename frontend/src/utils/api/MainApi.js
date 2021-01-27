@@ -2,9 +2,7 @@ import Api from './Api';
 class MainApi extends Api{
     
     constructor({baseUrl}){
-        // console.log(' MainApi baseUrl', baseUrl);
         super(baseUrl);
-        // console.log('super._baseUrl', super._baseUrl);
         this._baseUrl = baseUrl; 
     }
 
