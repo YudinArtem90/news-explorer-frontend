@@ -12,7 +12,7 @@ function SavedNewsHeader(props) {
 
   React.useEffect(() => {
     props.getSaveNews();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const convertNewsData = () => {
     let listNews = [];

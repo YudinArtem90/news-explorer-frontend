@@ -102,7 +102,7 @@ function App(props) {
   // убирает из Bookmarks удаленные новости
   const deleteBookmarks = (id) => {
     let array = [...cardsBookmarks];
-    cardsBookmarks.find((card, index) => { 
+    cardsBookmarks.forEach((card, index) => { 
       if(card.id === id){
         array.splice(index, 1);
       }
@@ -139,24 +139,6 @@ function App(props) {
             if(user){
                 workingWithNews.deleteNews();
                 deleteNewsData();
-                setCurrentUser({
-                    loggedIn : true,
-                    email: user.email,
-                    name: user.name
-                });
-                closeModal();
-            }else{
-                setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'});
-            }
-        })
-        .catch((error) => setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'}));
-  }
-
-  const getCurrentUser = () => {
-    MainApi
-        .getUser()
-        .then((user) => {
-            if(user){
                 setCurrentUser({
                     loggedIn : true,
                     email: user.email,
@@ -252,8 +234,12 @@ function App(props) {
     }
   }
 
-  const onSignOut = () => { 
+  const goToMainPage = () => { 
     props.history.push('/');
+  }
+
+  const onSignOut = () => { 
+    goToMainPage();
     workingWithToken.deleteToken();
     workingWithNews.deleteNews();
     workingWithNews.deleteCardsBookmarks();
@@ -265,21 +251,39 @@ function App(props) {
       name: ''
     });
   }
-
+  
   React.useEffect(() => {
     const isThereToken = workingWithToken.tokenCheck();
     setCardsBookmarks(workingWithNews.getCardsBookmarks());
+
+    const getCurrentUser = () => {
+      MainApi
+          .getUser()
+          .then((user) => {
+              if(user){
+                  setCurrentUser({
+                      loggedIn : true,
+                      email: user.email,
+                      name: user.name
+                  });
+                  closeModal();
+              }else{
+                  setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'});
+              }
+          })
+          .catch((error) => setErrorAll({status: true, error: 'Ошибка при запросе данных о пользователе.'}));
+    }
 
     if(isThereToken){
       getCurrentUser();
     }else{
       workingWithToken.deleteToken();
       workingWithNews.deleteCardsBookmarks();
-      props.history.push('/');
+      goToMainPage();
     }
     
     getNewsLocalStorage();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="root">
