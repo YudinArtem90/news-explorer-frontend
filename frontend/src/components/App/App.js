@@ -50,6 +50,15 @@ function App(props) {
   });
   const [statusForm, setStatusForm] = React.useState('authorization');
 
+
+  const deleteNewsData = () => {
+    setNewsData({
+      categoryName: '', 
+      news: [],
+      numberNewsItems: 0
+    });
+  }
+
   const saveNews = (date) => { 
 
     date.keyword = newsData.categoryName;
@@ -129,13 +138,7 @@ function App(props) {
         .then((user) => {
             if(user){
                 workingWithNews.deleteNews();
-
-                setNewsData({
-                  categoryName: '', 
-                  news: [],
-                  numberNewsItems: 0
-                });
-
+                deleteNewsData();
                 setCurrentUser({
                     loggedIn : true,
                     email: user.email,
@@ -197,7 +200,6 @@ function App(props) {
               password: valuePassword
           })
           .then((res) => {
-              // console.log('res', res);
               if(res){
                   if(workingWithToken.saveToken(res.token)){
                       getUser();
@@ -212,12 +214,7 @@ function App(props) {
   }
 
   const searchNews = (news) => {
-      
-    setNewsData({
-      categoryName: '', 
-      news: [],
-      numberNewsItems: 0
-    });
+    deleteNewsData();
     setSearchStatus(status.searchIsActive());
 
     newsApi
@@ -256,9 +253,12 @@ function App(props) {
   }
 
   const onSignOut = () => { 
-    window.location.replace("/"); // заменить
+    props.history.push('/');
     workingWithToken.deleteToken();
     workingWithNews.deleteNews();
+    workingWithNews.deleteCardsBookmarks();
+    setListSavedNewsItems([]);
+    deleteNewsData();
     setCurrentUser({
       loggedIn : false,
       email: '',
@@ -281,8 +281,6 @@ function App(props) {
     getNewsLocalStorage();
   }, []);
 
-  console.log('cardsBookmarks', cardsBookmarks);
-
   return (
     <div className="root">
 
@@ -300,14 +298,21 @@ function App(props) {
               listSavedNewsItems={listSavedNewsItems}
               mainThis={this}
               cardsBookmarks={cardsBookmarks}
-              // deleteCardBookmarks={deleteCardBookmarks}
               deleteNewsCardFromTheSavedOnes={deleteNewsCardFromTheSavedOnes}
               setShowModal={setShowModal}
             />
 
 
-            <Route path='/' exec>
-              <Main mainThis={this} newsData={newsData} searchStatus={searchStatus} searchNews={searchNews} saveNews={saveNews} cardsBookmarks={cardsBookmarks} deleteCardBookmarks={deleteCardBookmarks}/>
+            <Route path='/' exact>
+              <Main 
+                mainThis={this} 
+                newsData={newsData} 
+                searchStatus={searchStatus} 
+                searchNews={searchNews} 
+                saveNews={saveNews} 
+                cardsBookmarks={cardsBookmarks} 
+                deleteCardBookmarks={deleteCardBookmarks}
+              />
             </Route>
           
           </Switch>
