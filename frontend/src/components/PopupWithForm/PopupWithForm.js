@@ -57,6 +57,10 @@ class PopupWithForm extends React.Component{
   close() {
     this.props.closeModal();
     this.clearForm();
+    this.props.setErrorAll({
+      status: false, 
+      error : ''
+    });
   }
 
   setWrapperRef(node) {

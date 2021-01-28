@@ -1,7 +1,7 @@
 import React from 'react';
 import { name } from '../../utils/validation/validation';
 
-function ContainerName({setErrorName, errorName, setValueName}){
+function ContainerName({setErrorName, errorName, setValueName, valueName}){
 
     const nameCardRef = React.useRef();
     
@@ -27,6 +27,7 @@ function ContainerName({setErrorName, errorName, setValueName}){
                 onChange={validationName}
                 required 
                 ref={nameCardRef}
+                value={valueName}
                 placeholder="Введите своё имя"
             ></input>
             {

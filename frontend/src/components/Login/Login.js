@@ -2,8 +2,9 @@ import React from 'react';
 import ContainerEmail from '../ContainerEmail/ContainerEmail';
 import ContainerPassword from '../ContainerPassword/ContainerPassword';
 
-function Login({setDisabled, valueEmail, valuePassword, setValueEmail, setValuePassword}){
+function Login(props){
 
+    const {setDisabled, valueEmail, valuePassword} = props;
     const [ errorEmail, setErrorEmail ] = React.useState(false);
     const [ errorPassword, setErrorPassword ] = React.useState(false);
 
@@ -35,12 +36,12 @@ function Login({setDisabled, valueEmail, valuePassword, setValueEmail, setValueP
             <ContainerEmail 
                 setErrorEmail={setErrorEmail} 
                 errorEmail={errorEmail} 
-                setValueEmail={setValueEmail}
+                {...props}
             />
             <ContainerPassword 
                 setErrorPassword={setErrorPassword} 
                 errorPassword={errorPassword} 
-                setValuePassword={setValuePassword}
+                {...props}
             />
            
         </>
