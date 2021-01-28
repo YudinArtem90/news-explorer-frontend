@@ -30,7 +30,7 @@ function ContainerName({setErrorName, errorName, setValueName}){
                 placeholder="Введите своё имя"
             ></input>
             {
-                errorName ? <span className="form__error-input">Имя должно быть более 2-х символов</span> : null
+                errorName ? <span className="form__error-input">Имя должно быть более 2-х символов и только из букв</span> : null
             }
         </div>
     );

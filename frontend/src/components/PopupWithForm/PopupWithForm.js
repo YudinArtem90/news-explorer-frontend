@@ -49,7 +49,6 @@ class PopupWithForm extends React.Component{
   }
 
   clearForm(){
-    debugger;
     this.props.setValueEmail('');
     this.props.setValuePassword('');
     this.props.setValueName('');

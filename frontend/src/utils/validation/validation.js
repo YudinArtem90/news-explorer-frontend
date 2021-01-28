@@ -1,32 +1,39 @@
-import * as yup from 'yup';
-
 const password = (passwordCardRefValue) => {
-    let schema = yup.object({
-        password: yup.string().min(8).max(30).matches(/^[A-Za-z0-9]+$/g).required()
-      });
+    return new Promise(function(resolve, reject) {
+        const regex = /[0-9a-zA-Z!@#$%^&*]{8,}/g;
+        const usersPassword = passwordCardRefValue.match(regex);
 
-    return schema.validate({ 
-        password: passwordCardRefValue
+        if(usersPassword !== null){
+            resolve(true);
+        }else{
+            reject();
+        }
     });
 }
 
 const email = (emailCardRefValue) => {
-    let schema = yup.object({
-        email: yup.string().email().required()
-      });
+    return new Promise(function(resolve, reject) {
+        const regex = /[a-zA-Z0-9/./-/_]+@[a-zA-Z0-9/.]+(\.[a-zA-Z])/g;
+        const usersEmail = emailCardRefValue.match(regex);
 
-    return schema.validate({ 
-        email: emailCardRefValue
+        if(usersEmail !== null){
+            resolve(true);
+        }else{
+            reject();
+        }
     });
 }
 
 const name = (nameCardRefValue) => {
-    let schema = yup.object({
-        name : yup.string().min(2).max(30).required()
-        });
+    return new Promise(function(resolve, reject) {
+        const regex = /^([a-zA-Z]{2,30}|[а-яёА-ЯЁ]{2,30})+$/g;
+        const usersName = nameCardRefValue.match(regex);
 
-    return schema.validate({ 
-        name: nameCardRefValue
+        if(usersName !== null){
+            resolve(true);
+        }else{
+            reject();
+        }
     });
 }
 
