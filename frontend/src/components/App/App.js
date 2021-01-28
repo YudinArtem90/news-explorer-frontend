@@ -48,7 +48,10 @@ function App(props) {
       status: false,
       error: ''
   });
-  const [statusForm, setStatusForm] = React.useState('authorization');
+  const [statusForm, setStatusForm] = React.useState({
+    status: 'authorization',
+    message: ''
+  });
 
 
   const deleteNewsData = () => {
@@ -59,10 +62,18 @@ function App(props) {
     });
   }
 
+  const openModalError = (error) => { 
+        setShowModal(true);
+        setStatusForm({
+          status: 'error',
+          message: error.message ? error.message : 'Произошла ошибка.'
+        });
+  }
+
   const saveNews = (date) => { 
 
     date.keyword = newsData.categoryName;
-
+    
     MainApi
       .saveNews(date)
       .then((res) => { 
@@ -70,7 +81,9 @@ function App(props) {
         setCardsBookmarks(arrayCardsBookmarks);
         workingWithNews.addCardsBookmarks(arrayCardsBookmarks);
       })
-      .catch();
+      .catch((error) => { 
+        openModalError(error);
+      });
   }
 
   // удалить карточку новостей из сохраненных
@@ -83,11 +96,13 @@ function App(props) {
             getSaveNews();
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => { 
+        openModalError(error);
+      });
   }
 
   // удалить метку о том, что карточка сохранена с главной страницы
-  const deleteCardBookmarks = ({ id, link }) => { 
+  const deleteCardBookmarks = ({ id }) => { 
 
     MainApi
       .deleteNews(id)
@@ -96,7 +111,9 @@ function App(props) {
           deleteBookmarks(id);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => { 
+        openModalError(error);
+      });
   }
 
   // убирает из Bookmarks удаленные новости
@@ -120,14 +137,19 @@ function App(props) {
           setListSavedNewsItems(res);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => { 
+        openModalError(error);
+      });
   }
 
   const clearFormAll = (res) => { 
     setValueEmail('');
     setValuePassword('');
     setValueName('');
-    setStatusForm(res.message);
+    setStatusForm({
+      status: 'success',
+      message: res.message
+    });
     setErrorAll({status: false, error: ''});
     setDisabled(true);
   }
@@ -339,6 +361,7 @@ function App(props) {
             onRegister={onRegister}
             onLogin={onLogin}
             disabled={disabled}
+            setErrorAll={setErrorAll}
           />
       </CurrentUserContext.Provider>
     </CurrentPageContext.Provider>
