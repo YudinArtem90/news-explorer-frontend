@@ -14,6 +14,7 @@ class PopupWithForm extends React.Component{
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.escFunction = this.escFunction.bind(this);
     this.close = this.close.bind(this);
+    this.clearForm = this.clearForm.bind(this);
   }
 
   componentDidMount() {
@@ -47,8 +48,16 @@ class PopupWithForm extends React.Component{
     this.state.firstDiscovery = true;
   }
 
+  clearForm(){
+    debugger;
+    this.props.setValueEmail('');
+    this.props.setValuePassword('');
+    this.props.setValueName('');
+  }
+
   close() {
     this.props.closeModal();
+    this.clearForm();
   }
 
   setWrapperRef(node) {
@@ -74,7 +83,7 @@ class PopupWithForm extends React.Component{
             (statusForm.status === 'authorization' || statusForm.status === 'registration') &&
                 <>
                   <div className="popup__container-with-link popup__container-with-link_theme_form">или <LinkForm setStatus={setStatusForm} status={statusForm.status} setErrorAll={setErrorAll}/></div>
-                  <Form {...this.props} />
+                  <Form {...this.props} clearForm={this.clearForm}/>
                 </> 
           }
 

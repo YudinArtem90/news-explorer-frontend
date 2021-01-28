@@ -13,7 +13,9 @@ function Login({setDisabled, valueEmail, valuePassword, setValueEmail, setValueP
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
         errorEmail, 
-        errorPassword
+        errorPassword,
+        valueEmail,
+        valuePassword
     ]);
 
     const validationAll = () => {

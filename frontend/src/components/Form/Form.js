@@ -28,7 +28,13 @@ function Form(props) {
             onLogin();
         }
     }
-    
+
+    React.useEffect(() => {
+        props.clearForm();
+    }, 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [statusForm.status]);
+
     return (
         <div className="container-form">
             <h2 className="container-form__title">{statusForm.status === 'authorization' ? 'Войти' : 'Регистрация'}</h2>

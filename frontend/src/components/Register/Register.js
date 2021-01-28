@@ -17,11 +17,13 @@ function Register(props){
     [
         errorEmail, 
         errorPassword,
-        errorName
+        errorName,
+        valueEmail, 
+        valuePassword, 
+        valueName
     ]);
 
     const validationAll = () => {
-        
         if(valuePassword !== '' && valueEmail !== '' && valueName !== ''){
             if(!errorEmail && !errorPassword && !errorName){
                 setDisabled(false);
