@@ -62,6 +62,6 @@ class MainApi extends Api{
 }
 
 const mainApi = new MainApi({
-    baseUrl: process.env.REACT_APP_API_URL || 'http://127.0.0.1:3001'
+    baseUrl: process.env.REACT_APP_API_URL || 'https://api.students.nomoredomains.monster'
 });
 export default mainApi;
