@@ -22,6 +22,10 @@ function Header(props) {
       openModal();
     }
 
+    const buttonMenuMobileOpenMenu = () => {
+      setOpenMenu(!openMenu);
+    }
+
     return (
       <div className={`header ${openMenu ? 'header_theme_black' : ''} ${savedNews ? 'header_saved-news_page' : 'header_main_page'} ${hideMenu && 'header_hideMenu'}`}>
         <div className="header__left-container">
@@ -55,7 +59,7 @@ function Header(props) {
               ${mainPage ? "header__button-menu-mobile_theme_black" : "header__button-menu-mobile_theme_white"} 
               ${openMenu ? "header__button-menu-mobile_state_close" : "header__button-menu-mobile_state_open"} 
             `}
-              onClick={() => setOpenMenu(!openMenu)}
+              onClick={buttonMenuMobileOpenMenu}
             />
         </div>
 

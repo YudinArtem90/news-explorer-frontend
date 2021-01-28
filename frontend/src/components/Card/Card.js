@@ -66,6 +66,10 @@ function Card(props) {
         window.open(`${url.protocol}/${url.hostname}`, "_blank");
     }
 
+    const setVisibleLabelCard = () => {
+        setVisibleLabel(false);
+    }
+
     return (
         <div className="new-card-container">
             <div className="new-card-container__header" style={{ backgroundImage: `url(${img})` }} onClick={goToTheSourceOfInformation}>
@@ -82,7 +86,7 @@ function Card(props) {
                     visibleLabel && (currentUser.loggedIn && !mainPage) ? <label className="new-card-container__inform-label">Убрать из сохранённых</label> : null
                 }
                 <button 
-                    onMouseOut={() => setVisibleLabel(false)}
+                    onMouseOut={setVisibleLabelCard}
                     className={classButtonCard}
                     onClick={onButtonClickCard}
                 ></button>
