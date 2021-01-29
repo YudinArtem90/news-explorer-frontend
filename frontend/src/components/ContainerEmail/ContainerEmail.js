@@ -1,7 +1,7 @@
 import React from 'react';
 import { email } from '../../utils/validation/validation';
 
-function ContainerEmail({setErrorEmail, errorEmail, setValueEmail}){
+function ContainerEmail({setErrorEmail, errorEmail, setValueEmail, valueEmail}){
 
     const emailCardRef = React.useRef();
 
@@ -27,6 +27,7 @@ function ContainerEmail({setErrorEmail, errorEmail, setValueEmail}){
                 onChange={validationEmail}
                 required 
                 ref={emailCardRef}
+                value={valueEmail}
                 placeholder="Введите почту"
             ></input>
             {

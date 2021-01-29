@@ -1,11 +1,15 @@
 import './LinkForm.css';
 import React from 'react';
 
-function LinkForm({setStatus, status}) {
+function LinkForm({setStatus, status, setErrorAll}) {
 
     const onClickLink = () => {
+        setErrorAll({status: false, error: ''});
         const statusLink = status === 'authorization' ? 'registration' : 'authorization';
-        setStatus(statusLink);
+        setStatus({
+            status: statusLink,
+            message: ''
+        });
     }
 
     return (

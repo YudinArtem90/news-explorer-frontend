@@ -5,7 +5,7 @@ import ContainerName from '../ContainerName/ContainerName';
 
 function Register(props){
 
-    const {setDisabled, valueEmail, valuePassword, valueName, setValueEmail, setValuePassword, setValueName} = props;
+    const {setDisabled, valueEmail, valuePassword, valueName} = props;
     const [ errorEmail, setErrorEmail ] = React.useState(false);
     const [ errorPassword, setErrorPassword ] = React.useState(false);
     const [ errorName, setErrorName ] = React.useState(false);
@@ -17,11 +17,13 @@ function Register(props){
     [
         errorEmail, 
         errorPassword,
-        errorName
+        errorName,
+        valueEmail, 
+        valuePassword, 
+        valueName
     ]);
 
     const validationAll = () => {
-        
         if(valuePassword !== '' && valueEmail !== '' && valueName !== ''){
             if(!errorEmail && !errorPassword && !errorName){
                 setDisabled(false);
@@ -38,17 +40,17 @@ function Register(props){
         <ContainerEmail 
             setErrorEmail={setErrorEmail} 
             errorEmail={errorEmail} 
-            setValueEmail={setValueEmail}
+            {...props}
         />
         <ContainerPassword 
             setErrorPassword={setErrorPassword} 
             errorPassword={errorPassword} 
-            setValuePassword={setValuePassword}
+            {...props}
         />
        <ContainerName
            setErrorName={setErrorName}
            errorName={errorName}
-           setValueName={setValueName}
+           {...props}
        />
     </>
     );

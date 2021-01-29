@@ -1,7 +1,7 @@
 import React from 'react';
 import { password } from '../../utils/validation/validation';
 
-function ContainerPassword({setErrorPassword, errorPassword, setValuePassword}){
+function ContainerPassword({setErrorPassword, errorPassword, setValuePassword, valuePassword}){
 
     const passwordCardRef = React.useRef();
     
@@ -26,6 +26,7 @@ function ContainerPassword({setErrorPassword, errorPassword, setValuePassword}){
                 onChange={validationPassword}
                 required 
                 ref={passwordCardRef}
+                value={valuePassword}
                 type="password" 
                 placeholder="Введите пароль"
             ></input>

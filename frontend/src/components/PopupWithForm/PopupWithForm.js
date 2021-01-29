@@ -14,6 +14,7 @@ class PopupWithForm extends React.Component{
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.escFunction = this.escFunction.bind(this);
     this.close = this.close.bind(this);
+    this.clearForm = this.clearForm.bind(this);
   }
 
   componentDidMount() {
@@ -47,8 +48,19 @@ class PopupWithForm extends React.Component{
     this.state.firstDiscovery = true;
   }
 
+  clearForm(){
+    this.props.setValueEmail('');
+    this.props.setValuePassword('');
+    this.props.setValueName('');
+  }
+
   close() {
     this.props.closeModal();
+    this.clearForm();
+    this.props.setErrorAll({
+      status: false, 
+      error : ''
+    });
   }
 
   setWrapperRef(node) {
@@ -57,13 +69,13 @@ class PopupWithForm extends React.Component{
 
   render() {
 
-    const { showModal, statusForm, setStatusForm } = this.props;
+    const { showModal, statusForm, setStatusForm, setErrorAll } = this.props;
 
     if(showModal){
       // eslint-disable-next-line react/no-direct-mutation-state
       this.state.firstDiscovery = false;
     }
-
+    
     return (
       <div className={`popup ${showModal ? "popup_active_true" : "popup_active_false"}`}  >
         <div className="popup__main-container" ref={this.setWrapperRef}>
@@ -71,16 +83,30 @@ class PopupWithForm extends React.Component{
           <div className="popup__footer-container">
 
           {
-            statusForm === 'authorization' || statusForm === 'registration' ?
-              <>
-                <div className="popup__container-with-link popup__container-with-link_theme_form">или <LinkForm setStatus={setStatusForm} status={statusForm}/></div>
-                  <Form {...this.props} />
-                </> : 
+            (statusForm.status === 'authorization' || statusForm.status === 'registration') &&
                 <>
-                  <div className="popup__container-with-link popup__container-with-link_theme_info-successfully"><LinkForm setStatus={setStatusForm} status={statusForm}/></div>
-                  <h2 className="popup__info-successfully">{statusForm}</h2>
+                  <div className="popup__container-with-link popup__container-with-link_theme_form">или <LinkForm setStatus={setStatusForm} status={statusForm.status} setErrorAll={setErrorAll}/></div>
+                  <Form {...this.props} clearForm={this.clearForm}/>
+                </> 
+          }
+
+
+          {
+            statusForm.status === 'success' &&
+                <>
+                  <div className="popup__container-with-link popup__container-with-link_theme_info-successfully"><LinkForm setStatus={setStatusForm} status={statusForm.status} setErrorAll={setErrorAll}/></div>
+                  <h2 className="popup__info-successfully">{statusForm.message}</h2>
                 </>
           }
+
+          {
+            statusForm.status === 'error' &&
+                <>
+                  <div className="popup__container-with-link popup__container-with-link_theme_info-successfully"></div>
+                  <h2 className="popup__info-successfully">error: {statusForm.message}</h2>
+                </>
+          }
+
           </div>
         </div>
       </div>

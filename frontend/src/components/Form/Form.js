@@ -28,14 +28,20 @@ function Form(props) {
             onLogin();
         }
     }
-    
+
+    React.useEffect(() => {
+        props.clearForm();
+    }, 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [statusForm.status]);
+
     return (
         <div className="container-form">
-            <h2 className="container-form__title">{statusForm === 'authorization' ? 'Войти' : 'Регистрация'}</h2>
+            <h2 className="container-form__title">{statusForm.status === 'authorization' ? 'Войти' : 'Регистрация'}</h2>
             <form className="form" onSubmit={onSubmitForm}>
 
             {
-                statusForm === 'authorization' ?
+                statusForm.status === 'authorization' ?
                 <Login 
                     setDisabled={setDisabled} 
                     valueEmail={valueEmail} 
@@ -59,7 +65,7 @@ function Form(props) {
                 className={`form__button ${disabled ? 'form__button_theme_disable' : 'form__button_theme_active'}`}
                 type="submit" 
                 disabled={`${!disabled ? '' : 'disabled'}`}
-            >{statusForm === 'authorization' ? 'Войти' : 'Зарегистрироваться'}</button>
+            >{statusForm.status === 'authorization' ? 'Войти' : 'Зарегистрироваться'}</button>
                 
             </form>
         </div>
